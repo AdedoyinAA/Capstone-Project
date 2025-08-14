@@ -1,0 +1,82 @@
+# --------------------
+# Python
+# --------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# --------------------
+# Streamlit
+# --------------------
+.streamlit/secrets.toml
+.streamlit/config.toml
+.streamlit/cache/
+.streamlit/static/
+
+# --------------------
+# Jupyter Notebook
+# --------------------
+.ipynb_checkpoints/
+
+# --------------------
+# Data files
+# --------------------
+*.csv
+*.tsv
+*.json
+*.parquet
+*.avro
+*.orc
+*.db
+*.sqlite
+*.log
+*.gz
+*.zip
+
+# --------------------
+# Logs
+# --------------------
+logs/
+*.log
+
+# --------------------
+# ETL specific
+# --------------------
+temp/
+tmp/
+output/
+data/
+dags/__pycache__/
+airflow/logs/
+airflow/tmp/
+airflow/unittests.cfg
+
+# --------------------
+# OS-specific
+# --------------------
+.DS_Store
+Thumbs.db
+
+# --------------------
+# VSCode
+# --------------------
+.vscode/

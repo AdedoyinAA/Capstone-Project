@@ -163,7 +163,7 @@ database, so it can be used for the Streamlit application.
 ```
 ### User-Story-9
 ```
-I want to be able to load the combined box score and games dataset into the Pagila SQl database,
+I want to be able to load the combined box score and games dataset into the Pagila SQL database,
 so that it can be queried for visualisations and insights.
 ```
 #### User-Story-9 Acceptance Criteria
@@ -175,7 +175,7 @@ so that it can be queried for visualisations and insights.
 
 ### User-Story-10
 ```
-I want to be able to load the combined player information and salaries dataset into the Pagila SQl database,
+I want to be able to load the combined player information and salaries dataset into the Pagila SQL database,
 so that it can be queried for visualisations and insights.
 ```
 #### User-Story-10 Acceptance Criteria
@@ -212,6 +212,22 @@ and key insights about the cleaned and enriched NBA dataset.
 ---
 
 ## Project Kanban Board
+GitHub Projects was used to create Kanban boards for each user story.
+
+### Activity 2 - Extracting the Data
+#### Extract Box Scores Data - Epic-1-Story-1
+[Story-1 Board](https://github.com/users/AdedoyinAA/projects/3)
+#### Extract Games Data - Epic-1-Story-2
+[Story-2 Board](https://github.com/users/AdedoyinAA/projects/7)
+#### Extract Player Information Data - Epic-1-Story-3
+[Story-3 Board](https://github.com/users/AdedoyinAA/projects/8)
+#### Extract Salaries Data - Epic-1-Story-4
+[Story-4 Board](https://github.com/users/AdedoyinAA/projects/9)
+
+---
+
+### Activity 3 - Transforming the Data
+
 
 
 

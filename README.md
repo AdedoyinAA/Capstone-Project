@@ -2,7 +2,7 @@
 This repository contains an end-to-end definition of my Capstone Project which is a **NBA Stats ETL (Extract, Transform and Load) Pipeline** and Analysis using **Streamlit**.
 
 ## Repository Structure and Commits
-TBD
+> Coming soon...
 
 ## Project Requirements
 The user requires a robust ETL pipeline to integrate NBA games and players information from a CSV file on [Kaggle](https://www.kaggle.com/datasets/patrickhallila1994/nba-data-from-basketball-reference?select=salaries.csv). The pipeline must clean  and standardise the data, remove any invalid or missing entries and retain data only between **2016** and **2021**. Also, the pipeline should enrich the dataset by calculating how points were scored by each player during a game per year. This is so the user can analyse how a player's statistics changed per game and per season. The final cleaned and enriched dataset must be stored in the **Pagila SQL Database** for analysis. The user also requires a Streamlit application which contains visualisations which describe key insights e.g. *How a player's salary increases per season, Does the height of a player and their position affect their salary? Who scored the most three-pointer shots in a season?* etc. 
@@ -227,7 +227,7 @@ GitHub Projects was used to create Kanban boards for each user story.
 ---
 
 ### Activity 3 - Transforming the Data
-
+> Coming soon...
 
 
 

@@ -67,15 +67,15 @@ I want to be able to extract the box score data from the boxscore.csv file
 on Kaggle, so that I can transform it for analysis.
 ```
 #### User-Story-1 Acceptance Criteria
-- [ ] The box score data is successfully extracted from the CSV file on Kaggle.
-- [ ] The data extraction executes in less than two (2) seconds.
-- [ ] Data extraction occurs without any errors and data integrity is preserved.
-- [ ] Connection issues to Kaggle are logged and handled gracefully.
-- [ ] CSV and file errors are logged and handled gracefully.
-- [ ] Data extraction errors are logged and handled gracefully.
-- [ ] Successful data extraction is logged.
-- [ ] Box score data is stored in a **Pandas** DataFrame for further analysis.
-- [ ] Tests are written to verify that the box score data extraction process is successful.
+- [X] The box score data is successfully extracted from the CSV file on Kaggle.
+- [X] The data extraction executes in less than two (2) seconds.
+- [X] Data extraction occurs without any errors and data integrity is preserved.
+- [X] Connection issues to Kaggle are logged and handled gracefully.
+- [X] CSV and file errors are logged and handled gracefully.
+- [X] Data extraction errors are logged and handled gracefully.
+- [X] Successful data extraction is logged.
+- [X] Box score data is stored in a **Pandas** DataFrame for further analysis.
+- [X] Tests are written to verify that the box score data extraction process is successful.
 ### User-Story-2 
 ```
 As a Data Analyst/Scientist,
@@ -83,15 +83,15 @@ I want to be able to extract the games data from the games.csv file
 on Kaggle, so that I can transform it for analysis.
 ```
 #### User-Story-2 Acceptance Criteria
-- [ ] The games data is successfully extracted from the CSV file on Kaggle.
-- [ ] The data extraction executes in less than two (2) seconds.
-- [ ] Data extraction occurs without any errors and data integrity is preserved.
-- [ ] Connection issues to Kaggle are logged and handled gracefully.
-- [ ] CSV and file errors are logged and handled gracefully.
-- [ ] Data extraction errors are logged and handled gracefully.
-- [ ] Successful data extraction is logged.
-- [ ] Games data is stored in a **Pandas** DataFrame for further analysis.
-- [ ] Tests are written to verify that the games data extraction process is successful.
+- [X] The games data is successfully extracted from the CSV file on Kaggle.
+- [X] The data extraction executes in less than two (2) seconds.
+- [X] Data extraction occurs without any errors and data integrity is preserved.
+- [X]  Connection issues to Kaggle are logged and handled gracefully.
+- [X] CSV and file errors are logged and handled gracefully.
+- [X] Data extraction errors are logged and handled gracefully.
+- [X] Successful data extraction is logged.
+- [X] Games data is stored in a **Pandas** DataFrame for further analysis.
+- [X] Tests are written to verify that the games data extraction process is successful.
 ### User-Story-3
 ```
 As a Data Analyst/Scientist,
@@ -99,15 +99,15 @@ I want to be able to extract the player information data from the player_info.cs
 on Kaggle, so that I can transform it for analysis.
 ```
 #### User-Story-3 Acceptance Criteria
-- [ ] The player information data is successfully extracted from the CSV file on Kaggle.
-- [ ] The data extraction executes in less than two (2) seconds.
-- [ ] Data extraction occurs without any errors and data integrity is preserved.
-- [ ] Connection issues to Kaggle are logged and handled gracefully.
-- [ ] CSV and file errors are logged and handled gracefully.
-- [ ] Data extraction errors are logged and handled gracefully.
-- [ ] Successful data extraction is logged.
-- [ ] Player information data is stored in a **Pandas** DataFrame for further analysis.
-- [ ] Tests are written to verify that the player information data extraction process is successful.
+- [X] The player information data is successfully extracted from the CSV file on Kaggle.
+- [X] The data extraction executes in less than two (2) seconds.
+- [X] Data extraction occurs without any errors and data integrity is preserved.
+- [X] Connection issues to Kaggle are logged and handled gracefully.
+- [X] CSV and file errors are logged and handled gracefully.
+- [X] Data extraction errors are logged and handled gracefully.
+- [X] Successful data extraction is logged.
+- [X] Player information data is stored in a **Pandas** DataFrame for further analysis.
+- [X] Tests are written to verify that the player information data extraction process is successful.
 ### User-Story-4
 ```
 As a Data Analyst/Scientist,
@@ -115,15 +115,15 @@ I want to be able to extract the salaries data from the salaries.csv file
 on Kaggle, so that I can transform it for analysis.
 ```
 #### User-Story-4 Acceptance Criteria
-- [ ] The salaries data is successfully extracted from the CSV file on Kaggle.
-- [ ] The data extraction executes in less than two (2) seconds.
-- [ ] Data extraction occurs without any errors and data integrity is preserved.
-- [ ] Connection issues to Kaggle are logged and handled gracefully.
-- [ ] CSV and file errors are logged and handled gracefully.
-- [ ] Data extraction errors are logged and handled gracefully.
-- [ ] Successful data extraction is logged.
-- [ ] Salaries data is stored in a **Pandas** DataFrame for further analysis.
-- [ ] Tests are written to verify that the salaries data extraction process is successful.
+- [X] The salaries data is successfully extracted from the CSV file on Kaggle.
+- [X] The data extraction executes in less than two (2) seconds.
+- [X] Data extraction occurs without any errors and data integrity is preserved.
+- [X] Connection issues to Kaggle are logged and handled gracefully.
+- [X] CSV and file errors are logged and handled gracefully.
+- [X] Data extraction errors are logged and handled gracefully.
+- [X] Successful data extraction is logged.
+- [X] Salaries data is stored in a **Pandas** DataFrame for further analysis.
+- [X] Tests are written to verify that the salaries data extraction process is successful.
 
 ---
 

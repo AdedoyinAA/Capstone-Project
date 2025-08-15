@@ -227,6 +227,18 @@ GitHub Projects was used to create Kanban boards for each user story.
 ---
 
 ### Activity 3 - Transforming the Data
+#### Transform Box Scores Data - Epic-2-Story-5
+[Story-5 Board](https://github.com/users/AdedoyinAA/projects/10)
+#### Transform Games Data - Epic-2-Story-6
+[Story-6 Board](https://github.com/users/AdedoyinAA/projects/12)
+#### Transform Player Information Data - Epic-2-Story-7
+[Story-7 Board](https://github.com/users/AdedoyinAA/projects/13)
+#### Transform Salaries Data - Epic-2-Story-8
+[Story-8 Board]()
+
+---
+
+### Activity 4 - Loading the Data
 > Coming soon...
 
 

@@ -19,5 +19,5 @@ def extract_data():
         return (box_scores)
 
     except Exception as e:
-        logger.error(f"Data extraction failed: {str(e)}")
+        logger.error(f"Data extraction failed: {e}")
         raise

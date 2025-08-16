@@ -1,4 +1,5 @@
-# Capstone Project Walkthrough 
+![Alt text](./etl-pipeline/images/NBA.Com-National-Basketball-Association.png.avif)
+# Capstone Project Overview
 This repository contains an end-to-end definition of my Capstone Project which is a **NBA Stats ETL (Extract, Transform and Load) Pipeline** and Analysis using **Streamlit**.
 
 ## Repository Structure and Commits

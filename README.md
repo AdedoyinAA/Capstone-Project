@@ -2,11 +2,32 @@
 # Capstone Project Overview
 This repository contains an end-to-end definition of my Capstone Project which is a **NBA Stats ETL (Extract, Transform and Load) Pipeline** and Analysis using **Streamlit**.
 
-## Repository Structure and Commits
-> Coming soon...
-
+## Repository Structure
+<pre>
+├── etl-pipeline
+│   ├── config
+│   ├── data
+│   │   ├── processed               # Cleaned CSVs 
+│   │   └── raw                     # Unprocessed CSVs downloaded from Kaggle 
+│   ├── notebooks                   # Used for EDA    
+│   ├── requirements.txt            # Dependencies to set up virtual environment
+│   ├── scripts                     # Contains script that runs ETL pipeline
+│   ├── src
+│   │   ├── extract                 # Downloads and extracts the CSV data from kaggle
+│   │   ├── load                    # Loads the data into the Pagila SQL database
+│   │   ├── logs                    # Handles logging for the project
+│   │   ├── sql                     # SQL scripts for loading
+│   │   ├── transform               # Cleaning and enriching the dataset
+│   │   └── utils   
+│   └── tests                       # Testing ETL pipeline
+├── README.md
+└── streamlit
+</pre>
 ## Project Requirements
-The user requires a robust ETL pipeline to integrate NBA games and players information from a CSV file on [Kaggle](https://www.kaggle.com/datasets/patrickhallila1994/nba-data-from-basketball-reference?select=salaries.csv). The pipeline must clean  and standardise the data, remove any invalid or missing entries and retain data only between **2016** and **2021**. Also, the pipeline should enrich the dataset by calculating how points were scored by each player during a game per year. This is so the user can analyse how a player's statistics changed per game and per season. The final cleaned and enriched dataset must be stored in the **Pagila SQL Database** for analysis. The user also requires a Streamlit application which contains visualisations which describe key insights e.g. *How a player's salary increases per season, Does the height of a player and their position affect their salary? Who scored the most three-pointer shots in a season?* etc. 
+A robust ETL pipeline which integrates NBA games and players information from CSV files on [Kaggle](https://www.kaggle.com/datasets/patrickhallila1994/nba-data-from-basketball-reference?select=salaries.csv). The pipeline cleans and standardises the data, removes any invalid or missing entries and retains data only between **2014** and **2019**. Also, the pipeline enriches the dataset by calculating how points were scored by each player during a game per year. This is so the user can analyse how a player's statistics changed per game and per season. The final cleaned and enriched dataset is stored in the **Pagila SQL Database** for analysis. A Streamlit application is also designed which contains key insights and visualisations e.g. *How a player's salary increases per season, Does the height of a player and their position affect their salary? Who scored the most three-pointer shots in a season?* etc. 
+
+## Project Dataset
+> https://www.kaggle.com/datasets/patrickhallila1994/nba-data-from-basketball-reference/data?select=boxscore.csv
 
 ## Project Requirements as an Epic
 ```

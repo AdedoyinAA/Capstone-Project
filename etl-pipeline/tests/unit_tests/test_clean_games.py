@@ -106,10 +106,8 @@ def test_change_date_format():
 
     result = change_date_format(df)
 
-    # Expected output
     expected_dates = ["15-01-2015", "30-12-2016", "04-07-2019"]
 
-    # Assert conversion happened correctly
     assert list(result["date_time"]) == expected_dates
     assert result["date_time"].dtype == object
 

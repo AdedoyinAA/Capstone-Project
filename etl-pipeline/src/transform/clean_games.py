@@ -1,4 +1,5 @@
 import pandas as pd
+from src.transform.clean_boxscores import trim_whitespaces
 
 FILE_PATH = "data/processed/cleaned_games.csv"
 
@@ -45,19 +46,6 @@ def rename_columns(games: pd.DataFrame) -> pd.DataFrame:
         "datetime": "date_time"
     }
     games = games.rename(columns=dict_for_renaming_columns)
-
-    return games
-
-
-def trim_whitespaces(games: pd.DataFrame) -> pd.DataFrame:
-    # Trim leading and trailing whitespaces in column names
-    games.columns = games.columns.str.strip()
-
-    # Trim leading and trailing whitespaces in rows
-    games[games.select_dtypes(include="string").columns] = (
-        games.select_dtypes(
-            include="string").apply(lambda x: x.str.strip())
-    )
 
     return games
 

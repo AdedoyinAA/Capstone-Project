@@ -254,9 +254,9 @@ GitHub Projects was used to create Kanban boards for each user story.
 #### Transform Games Data - Epic-2-Story-6
 [Story-6 Board](https://github.com/users/AdedoyinAA/projects/12)
 #### Transform Player Information Data - Epic-2-Story-7
-[Story-7 Board](https://github.com/users/AdedoyinAA/projects/13)
+[Story-7 Board]()
 #### Transform Salaries Data - Epic-2-Story-8
-[Story-8 Board]()
+[Story-8 Board](https://github.com/users/AdedoyinAA/projects/13)
 
 ---
 

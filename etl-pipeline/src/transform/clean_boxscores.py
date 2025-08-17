@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 FILE_PATH = "data/processed/cleaned_boxscores.csv"
 
 

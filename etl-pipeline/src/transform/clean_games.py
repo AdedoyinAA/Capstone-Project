@@ -4,6 +4,8 @@ FILE_PATH = "data/processed/cleaned_games.csv"
 
 
 def clean_games(games: pd.DataFrame) -> pd.DataFrame:
+    # Keep only regular season games
+    games = filter_out_only_regular_season_games(games)
     # Remove unnecessary columns
     games = remove_unnecessary_columns(games)
     # Rename columns
@@ -12,21 +14,25 @@ def clean_games(games: pd.DataFrame) -> pd.DataFrame:
     games = trim_whitespaces(games)
     # Change date format to DD-MM-YYY
     games = change_date_format(games)
-    # Keep only games from 2015 2019
+    # Keep only games from 2015 to 2019
     games = filter_2015_to_2019(games)
-
     # Save the cleaned dataframe as a CSV
     games.to_csv(FILE_PATH, index=False)
+
+    return games
+
+
+def filter_out_only_regular_season_games(games: pd.DataFrame) -> pd.DataFrame:
+    games = games[(games["isRegular"] == 1)]
     return games
 
 
 def remove_unnecessary_columns(games: pd.DataFrame) -> pd.DataFrame:
     columns_to_drop = ["attendance", "notes", "startET", "isRegular"]
-    games.drop(
+    new_games = games.drop(
         columns=columns_to_drop,
-        inplace=True
     )
-    return games
+    return new_games
 
 
 def rename_columns(games: pd.DataFrame) -> pd.DataFrame:
@@ -58,7 +64,7 @@ def trim_whitespaces(games: pd.DataFrame) -> pd.DataFrame:
 
 def change_date_format(games: pd.DataFrame) -> pd.DataFrame:
     # Change date_time to datetime object
-    games["date_time"] = pd.to_datetime(games["date_time"], format="%Y-%m-%d")
+    games["date_time"] = pd.to_datetime(games["date_time"])
 
     # Change the format to DD-MM-YYYY
     games["date_time"] = games["date_time"].dt.strftime("%d-%m-%Y")

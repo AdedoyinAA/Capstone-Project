@@ -27,6 +27,7 @@ def sample_games():
         "isRegular": [1, 0],
         "game_id": [25000, 26000]
     }
+
     return pd.DataFrame(data)
 
 

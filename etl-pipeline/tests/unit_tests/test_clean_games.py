@@ -98,14 +98,12 @@ def test_filter_2015_to_2019():
 
 
 def test_change_date_format():
-    # Sample data
     data = {
         "game_id": [1, 2, 3],
         "date_time": ["2015-01-15", "2016-12-30", "2019-07-04"]
     }
     df = pd.DataFrame(data)
 
-    # Apply transformation
     result = change_date_format(df)
 
     # Expected output

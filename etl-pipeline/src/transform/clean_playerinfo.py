@@ -15,7 +15,7 @@ def clean_playerinfo(playerinfo: pd.DataFrame) -> pd.DataFrame:
     # Change position values
     playerinfo = change_position_values(playerinfo)
     # Calculate weight in kg
-    playerinfo = calculate_height_m(playerinfo)
+    playerinfo = calculate_weight_kg(playerinfo)
     # Calculate height in metres
     playerinfo = calculate_height_m(playerinfo)
     # Trim whitespaces

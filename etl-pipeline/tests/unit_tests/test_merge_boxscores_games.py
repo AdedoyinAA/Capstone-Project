@@ -34,7 +34,8 @@ def test_merge_boxscores_games(sample_boxscores, sample_games):
 
     # Check for correct columns
     expected_columns = set([
-        "game_id", "team_name",
+        "game_id",
+        "team_name",
         "points",
         "home_team",
         "away_team"

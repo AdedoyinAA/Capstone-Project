@@ -3,6 +3,8 @@ import sys
 from config.env_config import setup_env
 from src.extract.extract import extract_data
 from src.transform.transform import transform_data
+from src.load.load_player_stats import load_player_stats
+from src.load.load_team_stats import load_team_stats
 from src.utils.logging_utils import setup_logger
 
 # Configure the logger
@@ -32,6 +34,12 @@ def main():
         transformed_data = transform_data(extracted_data)
         logger.info("Data transformation phase completed")
 
+        logger.info("Beginning data loading phase")
+        # Load player stats into Pagila
+        load_player_stats(transformed_data[4])
+        # Load team stats into Pagila
+        load_team_stats(transformed_data[5])
+        logger.info("Data loading phase completed")
         logger.info(
             f"ETL pipeline completed successfully in {env} environment"
         )

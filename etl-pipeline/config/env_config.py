@@ -71,11 +71,6 @@ def cleanup_previous_env():
     environments.
     """
     keys_to_clear = [
-        "SOURCE_DB_NAME",
-        "SOURCE_DB_USER",
-        "SOURCE_DB_PASSWORD",
-        "SOURCE_DB_HOST",
-        "SOURCE_DB_PORT",
         "TARGET_DB_NAME",
         "TARGET_DB_USER",
         "TARGET_DB_PASSWORD",

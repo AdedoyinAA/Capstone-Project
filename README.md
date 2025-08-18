@@ -261,7 +261,11 @@ GitHub Projects was used to create Kanban boards for each user story.
 ---
 
 ### Activity 4 - Loading the Data
-> Coming soon...
+#### Load Player Stats and Team Stats Data - Epic-3-Story-9
+[Story-9 Board](https://github.com/users/AdedoyinAA/projects/18)
+#### Load Player Information and Salaries - Epic-3-Story-10
+[Story-10 Board](https://github.com/users/AdedoyinAA/projects/19)
+
 
 
 

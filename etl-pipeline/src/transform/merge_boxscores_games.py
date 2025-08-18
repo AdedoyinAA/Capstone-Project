@@ -7,7 +7,13 @@ def merge_boxscores_games(
     boxscores: pd.DataFrame,
     games: pd.DataFrame
 ) -> pd.DataFrame:
-    merged_data = pd.merge(boxscores, games, on="game_id", how="inner")
-    merged_data.to_csv(FILE_PATH, index=False)
+    boxscores_and_games_df = pd.merge(
+        boxscores,
+        games,
+        on="game_id",
+        how="inner"
+    )
 
-    return merged_data
+    boxscores_and_games_df.to_csv(FILE_PATH, index=False)
+
+    return boxscores_and_games_df

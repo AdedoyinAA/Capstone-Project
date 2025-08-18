@@ -63,13 +63,13 @@ def remove_missing_values(playerinfo: pd.DataFrame) -> pd.DataFrame:
 def change_position_values(playerinfo: pd.DataFrame) -> pd.DataFrame:
     # Create a map to change the values in the position column
     mapping_dict = {
-        "F-C": "Forward-Center",
-        "C-F": "Center-Forward",
+        "F-C": "Forward, Center",
+        "C-F": "Center, Forward",
         "C": "Center",
         "G": "Guard",
         "F": "Forward",
-        "G-F": "Guard-Forward",
-        "F-G": "Forward-Guard"
+        "G-F": "Guard, Forward",
+        "F-G": "Forward, Guard"
     }
     playerinfo["position"] = playerinfo["position"].replace(mapping_dict)
 

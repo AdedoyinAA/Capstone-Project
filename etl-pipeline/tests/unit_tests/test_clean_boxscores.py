@@ -8,7 +8,8 @@ from src.transform.clean_boxscores import (
     rename_columns,
     trim_whitespaces,
     calculate_field_goals_percentage,
-    calculate_three_point_percentage
+    calculate_three_point_percentage,
+    calculate_free_throws_percentage
 )
 
 
@@ -111,6 +112,14 @@ def test_calculate_three_point_percentage():
     df = calculate_three_point_percentage(df)
     assert df.loc[0, "three_point_percentage_%"] == 50
     assert df.loc[1, "three_point_percentage_%"] == 0
+
+
+def test_calculate_free_throws_percentage():
+    df = pd.DataFrame({"free_throws": [2, 0],
+                       "free_throws_attempted": [4, 0]})
+    df = calculate_free_throws_percentage(df)
+    assert df.loc[0, "free_throws_percentage_%"] == 50
+    assert df.loc[1, "free_throws_percentage_%"] == 0
 
 
 def test_clean_boxscores_runs(sample_boxscores, tmp_path):

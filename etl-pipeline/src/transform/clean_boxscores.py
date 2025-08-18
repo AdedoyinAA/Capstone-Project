@@ -20,6 +20,8 @@ def clean_boxscores(boxscores: pd.DataFrame) -> pd.DataFrame:
     boxscores = calculate_field_goals_percentage(boxscores)
     # Calculate three point percentage
     boxscores = calculate_three_point_percentage(boxscores)
+    # Calculate free throws percentage
+    boxscores = calculate_free_throws_percentage(boxscores)
 
     # Save the cleaned dataframe as a CSV
     boxscores.to_csv(FILE_PATH, index=False)
@@ -131,5 +133,21 @@ def calculate_three_point_percentage(boxscores: pd.DataFrame) -> pd.DataFrame:
     boxscores.loc[boxscores[
         "three_pointers_attempted"] == 0,
         "three_point_percentage_%"] = 0
+
+    return boxscores
+
+
+def calculate_free_throws_percentage(boxscores: pd.DataFrame) -> pd.DataFrame:
+    # Add a new column which calculates the free throws percentage
+    boxscores["free_throws_percentage_%"] = (
+        (boxscores["free_throws"]
+         / boxscores["free_throws_attempted"]
+         * 100)
+    ).round(2)
+
+    # Change NaN values to 0
+    boxscores.loc[boxscores[
+        "free_throws_attempted"] == 0,
+        "free_throws_percentage_%"] = 0
 
     return boxscores

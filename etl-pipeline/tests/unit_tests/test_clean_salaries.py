@@ -29,7 +29,7 @@ def test_rename_columns(sample_salaries):
     assert "inflation_adjusted_salary" in df.columns
 
 
-def test_remove_dollar_sign(sample_salaries):
+def test_remove_dollar_sign():
     data = {
         "player_name": ["LeBron James", "Stephen Curry", "James Harden"],
         "season_start_year": ["2006", "2009", "2019"],
@@ -56,7 +56,7 @@ def test_remove_dollar_sign(sample_salaries):
     pd.testing.assert_frame_equal(result.reset_index(drop=True), expected_df)
 
 
-def test_convert_year_to_numeric(sample_salaries):
+def test_convert_year_to_numeric():
     data = {
         "player_name": ["LeBron James", "Stephen Curry", "James Harden"],
         "season_start_year": ["2006", "2009", "2019"],

@@ -1,5 +1,6 @@
 import pandas as pd
-from src.transform.clean_boxscores import trim_whitespaces
+from src.utils.trimming_whitespace_utils import trim_whitespaces
+from src.utils.remove_special_characters_utils import remove_special_characters
 from src.transform.clean_games import filter_2015_to_2019
 
 FILE_PATH = "data/processed/cleaned_salaries.csv"
@@ -14,6 +15,8 @@ def clean_salaries(salaries: pd.DataFrame) -> pd.DataFrame:
     salaries = remove_dollar_sign(salaries)
     # Convert year to numeric
     salaries = convert_year_to_numeric(salaries)
+    # Remove special characters from player names
+    salaries = remove_special_characters(salaries)
     # Keep only salaries from 2015 to 2019
     salaries = filter_2015_to_2019(salaries)
     # Save the cleaned dataframe as a CSV

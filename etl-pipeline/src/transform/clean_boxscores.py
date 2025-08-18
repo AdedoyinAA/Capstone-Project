@@ -1,4 +1,5 @@
 import pandas as pd
+from src.utils.trimming_whitespace_utils import trim_whitespaces
 
 FILE_PATH = "data/processed/cleaned_boxscores.csv"
 
@@ -100,19 +101,6 @@ def rename_columns(boxscores: pd.DataFrame) -> pd.DataFrame:
         "isStarter": "is_starter"
     }
     boxscores = boxscores.rename(columns=dict_for_renaming_columns)
-
-    return boxscores
-
-
-def trim_whitespaces(boxscores: pd.DataFrame) -> pd.DataFrame:
-    # Trim leading and trailing whitespaces in column names
-    boxscores.columns = boxscores.columns.str.strip()
-
-    # Trim leading and trailing whitespaces in rows
-    boxscores[boxscores.select_dtypes(include="string").columns] = (
-        boxscores.select_dtypes(
-            include="string").apply(lambda x: x.str.strip())
-    )
 
     return boxscores
 

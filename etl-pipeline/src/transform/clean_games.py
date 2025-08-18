@@ -1,5 +1,5 @@
 import pandas as pd
-from src.transform.clean_boxscores import trim_whitespaces
+from src.utils.trimming_whitespace_utils import trim_whitespaces
 
 FILE_PATH = "data/processed/cleaned_games.csv"
 

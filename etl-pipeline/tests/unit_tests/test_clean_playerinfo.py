@@ -50,8 +50,8 @@ def test_change_position_values():
     }
 
     expected_positions = [
-        "Forward-Center",
-        "Guard-Forward",
+        "Forward, Center",
+        "Guard, Forward",
         "Center",
         "Forward"
     ]

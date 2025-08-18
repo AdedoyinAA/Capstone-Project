@@ -5,6 +5,8 @@ from src.transform.clean_games import clean_games
 from src.transform.clean_playerinfo import clean_playerinfo
 from src.transform.clean_salaries import clean_salaries
 from src.transform.merge_boxscores_games import merge_boxscores_games
+from src.transform.transform_merged_boxscores_games import get_player_stats
+from src.transform.transform_merged_boxscores_games import get_team_stats
 from src.utils.logging_utils import setup_logger
 
 
@@ -37,8 +39,21 @@ def transform_data(data) -> Tuple[pd.DataFrame, pd.DataFrame]:
 
         # Enrich box scores and games data
         logger.info("Merging box scores and games data...")
-        merge_boxscores_games(cleaned_boxscores, cleaned_games)
+        merged_boxscores_games = merge_boxscores_games(
+            cleaned_boxscores,
+            cleaned_games
+        )
         logger.info("Data merged successfully.")
+
+        # Get player stats
+        logger.info("Extracting Player Stats...")
+        player_stats = get_player_stats(merged_boxscores_games)
+        logger.info("Player Stats successfully transformed.")
+
+        # Get team stats
+        logger.info("Extracting Team Stats...")
+        team_stats = get_team_stats(merged_boxscores_games)
+        logger.info("Team Stats successfully transformed.")
 
         logger.info(
             "Data transformation completed successfully."
@@ -47,7 +62,9 @@ def transform_data(data) -> Tuple[pd.DataFrame, pd.DataFrame]:
             cleaned_boxscores,
             cleaned_games,
             cleaned_playerinfo,
-            cleaned_salaries
+            cleaned_salaries,
+            player_stats,
+            team_stats
         )
 
     except Exception as e:

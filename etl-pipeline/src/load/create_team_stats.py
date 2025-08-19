@@ -1,12 +1,13 @@
 import pandas as pd
 
-from sqlalchemy import Connection, text
+from sqlalchemy import Connection
 from config.db_config import load_db_config, DatabaseConfigError
 from src.utils.database_utils import (
     get_db_connection,
     DatabaseConnectionError,
     QueryExecutionError
 )
+from src.utils.table_exists_utils import log_table_action
 from src.utils.logging_utils import setup_logger
 
 
@@ -14,26 +15,6 @@ from src.utils.logging_utils import setup_logger
 logger = setup_logger("load_data", "load_data.log")
 
 TABLE_NAME = "aa_team_stats"
-
-
-def log_table_action(connection: Connection, table_name: str) -> bool:
-    # Checks if the table exists or not
-    result = connection.execute(
-        text(
-            "SELECT EXISTS (SELECT FROM information_schema.tables WHERE"
-            " table_name = :table_name)"
-        ),
-        {"table_name": table_name}
-    ).scalar()
-
-    table_exists = bool(result) if result is not None else False
-
-    if table_exists:
-        logger.info(f"Replacing data in {table_name} table...")
-    else:
-        logger.info(f"Creating new {table_name} table...")
-
-    return table_exists
 
 
 def create_team_stats(team_stats: pd.DataFrame) -> None:

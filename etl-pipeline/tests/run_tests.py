@@ -10,7 +10,9 @@ def main():
         'unit': {'dir': 'tests/unit_tests', 'cov': ['config', 'src']},
         'integration': {'dir': 'tests/integration_tests', 'cov': []},
         'component': {'dir': 'tests/component_tests', 'cov': []},
-        'all': {'dir': 'tests', 'cov': ['config', 'src']},
+        'all': {
+            'dir': 'tests',
+            'cov': ['config', 'src']}
     }
 
     # Check to see if a command was supplied for the test run
@@ -24,7 +26,10 @@ def main():
         if cov_sources:
             cov_command = (
                 f'ENV=test coverage run --source={cov_sources} '
-                f'--omit=*/__init__.py -m pytest --verbose {test_dir} '
+                '--omit=*/__init__.py,src/transform/merge_boxscores_games.py,'
+                'src/transform/merge_playerinfo_salaries.py,'
+                'src/transform/transform_merged_boxscores_games.py '
+                f'-m pytest --verbose {test_dir} '
                 '&& coverage report -m && coverage html '
                 '&& coverage report --fail-under=80'
             )

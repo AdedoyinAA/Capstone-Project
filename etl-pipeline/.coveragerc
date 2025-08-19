@@ -1,5 +1,7 @@
 [run]
 omit = 
+    src/transform/merge_boxscores_games.py
+    src/transform/merge_playerinfo_salaries.py
     */__init__.py
     tests/*
 

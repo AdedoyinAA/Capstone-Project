@@ -36,7 +36,7 @@ def create_db_engine(connection_params):
     except ArgumentError as e:
         logger.setLevel(logging.ERROR)
         logger.error(f"Invalid Connection Parameters: {e}")
-        raise DatabaseConnectionError(f"Invalid Connection Parameteres: {e}")
+        raise DatabaseConnectionError(f"Invalid Connection Parameters: {e}")
     except ImportError as e:
         logger.setLevel(logging.ERROR)
         logger.error(f"Invalid DB Driver: {e}")
@@ -58,7 +58,7 @@ def get_db_connection(connection_params):
         logger.setLevel(logging.ERROR)
         logger.error(f"Operational error when connecting to the database: {e}")
         raise DatabaseConnectionError(
-            f"Operational error when connecting to the databaser: {e}"
+            f"Operational error when connecting to the database: {e}"
         )
     except SQLAlchemyError as e:
         logger.setLevel(logging.ERROR)

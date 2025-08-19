@@ -33,7 +33,7 @@ def extract_csvs():
 
 
 def extract_boxscores() -> pd.DataFrame:
-    # extract_csvs()  Stop downloading CSVs after first run
+    extract_csvs()
     # Performance analysis
     start_time = timeit.default_timer()
 

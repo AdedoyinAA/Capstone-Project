@@ -28,7 +28,7 @@ pip install -r requirements.txt
 ```
 4. **Run the project in editable mode**:
 ```bash
-pip install -e.
+pip install -e .
 ```
 5. **Add `.env` file and add these variables (fill with your own database details)**:
 ```env

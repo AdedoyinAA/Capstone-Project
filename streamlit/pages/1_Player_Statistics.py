@@ -72,7 +72,11 @@ player_stats_df_full[percentage_stats] = \
 years = sorted(player_stats_df_full["year"].unique())
 
 # Add a dropdown to select year
-selected_year = st.selectbox("Select a Year:", years)
+selected_year = st.selectbox(
+    label="Select a Year:",
+    options=years,
+    help="Choose a year"
+)
 
 # Filter players based on selected year
 players_for_year = player_stats_df_full.loc[
@@ -81,7 +85,11 @@ players_for_year = player_stats_df_full.loc[
 
 # Add a dropdown to select player
 
-selected_player = st.selectbox("Select a Player:", sorted(players_for_year))
+selected_player = st.selectbox(
+    label="Select a Player:",
+    options=sorted(players_for_year),
+    help=("Choose a player")
+)
 
 st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
 
@@ -156,7 +164,7 @@ bar_chart = px.bar(
     color_continuous_scale="Blues",
     title="Top 10 Players by Total Three-Pointers",
     labels={
-        "player_name": "Player",
+        "player_name": "Player Name",
         "total_three_pointers": "Total 3-Pointers"
     }
 )

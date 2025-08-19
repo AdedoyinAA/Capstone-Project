@@ -12,7 +12,10 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
-st.title(":blue[HoopMetrics] 🏀")
+st.markdown(
+    "<h1 style='text-align: center; color: #60b4ff;'>HoopMetrics! 🏀</h1>",
+    unsafe_allow_html=True
+)
 
 
 # Load database credentials from secrets.toml
@@ -44,7 +47,11 @@ years = sorted(team_stats_df["year"].unique())
 st.subheader(":blue[Individual Team Stats] 📊")
 
 # Add dropdown for year selection
-selected_year = st.selectbox("Select a Year:", years)
+selected_year = st.selectbox(
+    label="Select a Year:",
+    options=years,
+    help="Choose a year"
+)
 
 # Filter teams based on selected year
 teams_for_year = team_stats_df.loc[
@@ -52,7 +59,11 @@ teams_for_year = team_stats_df.loc[
 ].unique()
 
 # Add dropdown for team selection
-selected_team = st.selectbox("Select a Team:", sorted(teams_for_year))
+selected_team = st.selectbox(
+    label="Select a Team:",
+    options=sorted(teams_for_year),
+    help="Choose a team"
+)
 
 st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
 

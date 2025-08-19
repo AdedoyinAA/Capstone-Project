@@ -114,9 +114,6 @@ def test_create_db_engine_success(
     )
 
 
-# Define a set of connection parameters that are invalid
-# These should be used as parameterised inputs for the test
-# The function should through a ValueError if connection parameters are invalid
 @pytest.mark.parametrize(
     "invalid_params",
     [

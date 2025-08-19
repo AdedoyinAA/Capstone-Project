@@ -67,4 +67,4 @@ def get_db_connection(connection_params):
             f"Failed to connect to the database: {e}"
         )
     except Exception as e:
-        raise Exception(f"An error occured: {e}")
+        raise Exception(f"An error occurred: {e}")

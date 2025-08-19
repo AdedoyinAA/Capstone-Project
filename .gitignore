@@ -80,3 +80,9 @@ Thumbs.db
 # VSCode
 # --------------------
 .vscode/
+
+# --------------------
+# Environment Variables
+# --------------------
+.env.dev
+.env.test

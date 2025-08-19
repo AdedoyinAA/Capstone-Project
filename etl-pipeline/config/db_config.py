@@ -31,7 +31,7 @@ def load_db_config() -> Dict[str, Dict[str, str]]:
             "user": os.getenv("TARGET_DB_USER", "error"),
             "password": os.getenv("TARGET_DB_PASSWORD", ""),
             "host": os.getenv("TARGET_DB_HOST", "error"),
-            "port": os.getenv("TARGET_DB_PORT", "5432"),
+            "port": os.getenv("TARGET_DB_PORT", "5432")
         },
     }
 

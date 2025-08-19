@@ -71,7 +71,7 @@ def test_create_player_stats_new_table(
     mock_to_sql.assert_called_once_with(
         TABLE_NAME,
         con=mock_connection,
-        schema="de_2506_a",
+        schema="public",
         if_exists="replace",
         index=False
     )

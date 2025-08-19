@@ -1,5 +1,4 @@
 import pandas as pd
-
 from sqlalchemy import Connection
 from config.db_config import load_db_config, DatabaseConfigError
 from src.utils.database_utils import (
@@ -9,7 +8,10 @@ from src.utils.database_utils import (
 )
 from src.utils.table_exists_utils import log_table_action
 from src.utils.logging_utils import setup_logger
+from src.utils.schema_utils import set_schema
 
+
+schema = set_schema()
 
 # Setup the logger
 logger = setup_logger("load_data", "load_data.log")
@@ -36,7 +38,7 @@ def create_team_stats(team_stats: pd.DataFrame) -> None:
         team_stats.to_sql(
             TABLE_NAME,
             con=connection,
-            schema="de_2506_a",
+            schema=schema,
             if_exists="replace",
             index=False
         )

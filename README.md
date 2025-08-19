@@ -189,11 +189,11 @@ I want to be able to load the combined box score and games dataset into the Pagi
 so that it can be queried for visualisations and insights.
 ```
 #### User-Story-9 Acceptance Criteria
-- [ ] The combined dataset is successfully loaded into the Pagila SQL database.
-- [ ] Connection issues to the Pagila SQL Database are logged and handled gracefully.
-- [ ] Successful data loading is logged.
-- [ ] Data loading errors are logged and handled gracefully.
-- [ ] Tests are written to verify that the data loading process is successful.
+- [X] The combined dataset is successfully loaded into the Pagila SQL database.
+- [X] Connection issues to the Pagila SQL Database are logged and handled gracefully.
+- [X] Successful data loading is logged.
+- [X] Data loading errors are logged and handled gracefully.
+- [X] Tests are written to verify that the data loading process is successful.
 
 ### User-Story-10
 ```
@@ -201,11 +201,11 @@ I want to be able to load the combined player information and salaries dataset i
 so that it can be queried for visualisations and insights.
 ```
 #### User-Story-10 Acceptance Criteria
-- [ ] The combined dataset is successfully loaded into the Pagila SQL database.
-- [ ] Connection issues to the Pagila SQL Database are logged and handled gracefully.
-- [ ] Successful data loading is logged.
-- [ ] Data loading errors are logged and handled gracefully.
-- [ ] Tests are written to verify that the data loading process is successful.
+- [X] The combined dataset is successfully loaded into the Pagila SQL database.
+- [X] Connection issues to the Pagila SQL Database are logged and handled gracefully.
+- [X] Successful data loading is logged.
+- [X] Data loading errors are logged and handled gracefully.
+- [X] Tests are written to verify that the data loading process is successful.
 
 ---
 

@@ -31,7 +31,6 @@ engine = create_engine(
 def load_team_stats():
     try:
         query = load_sql_query("team_stats.sql")
-
         return pd.read_sql(query, engine)
     except Exception as e:
         st.error(f"Error fetching data: {e}")
@@ -39,44 +38,46 @@ def load_team_stats():
 
 team_stats_df = load_team_stats()
 
-# Get the season start years
-season_start_years = sorted(team_stats_df["season_start_year"].unique())
+# Get the years
+years = sorted(team_stats_df["year"].unique())
 
-st.subheader(":blue[Individual Team Stats]")
+st.subheader(":blue[Individual Team Stats] 📊")
 
 # Add dropdown for year selection
-selected_year = st.selectbox("Select a Season Start Year:", season_start_years)
+selected_year = st.selectbox("Select a Year:", years)
 
 # Filter teams based on selected year
 teams_for_year = team_stats_df.loc[
-    team_stats_df["season_start_year"] == selected_year, "team_name"
+    team_stats_df["year"] == selected_year, "team_name"
 ].unique()
 
 # Add dropdown for team selection
 selected_team = st.selectbox("Select a Team:", sorted(teams_for_year))
 
-# Filter the final dataframe
+st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
+
+# Filter the final DataFrame
 filtered_team_stats_df = team_stats_df[
-    (team_stats_df["season_start_year"] == selected_year)
+    (team_stats_df["year"] == selected_year)
     & (team_stats_df["team_name"] == selected_team)
 ]
 
 # Display metrics in columns
-col1, col2, col3 = st.columns([1, 1, 1])
-with col1:
+column_1, column_2, column_3 = st.columns([1, 1, 1])
+with column_1:
     st.metric(
         label=":blue[Total Wins]",
         value=filtered_team_stats_df["total_wins"],
         border=True,
-        help="Total number of wins in the calendar year"
+        help="Total number of wins in the year"
     )
     st.metric(
         label=":blue[Total Losses]",
         value=filtered_team_stats_df["total_losses"],
         border=True,
-        help="Total number of losses in the calendar year"
+        help="Total number of losses in the year"
     )
-with col2:
+with column_2:
     # Pie Chart for wins vs losses
     wins = filtered_team_stats_df["total_wins"].values[0]
     losses = filtered_team_stats_df["total_losses"].values[0]
@@ -89,37 +90,39 @@ with col2:
         names="Result",
         values="Count",
         color="Result",
-        color_discrete_map={"Win": "blue", "Loss": "red"}
+        color_discrete_map={"Win": "#60b4ff", "Loss": "red"}
     )
+    # Set figure size
+    pie_chart.update_layout(width=350, height=350)  # smaller size
     st.plotly_chart(pie_chart)
-with col3:
+with column_3:
     st.metric(
         label=":blue[Total Games]",
         value=filtered_team_stats_df["total_games"],
         border=True,
-        help="Total number of games in the calendar year"
+        help="Total number of games"
     )
     st.metric(
         label=":blue[Win Percentage]",
         value=filtered_team_stats_df["win_pct"],
         border=True,
-        help="Win percentage for games in the calendar year"
+        help="Win percentage for games in the year"
     )
 
 
 st.markdown("<div style='margin-top: 100px;'></div>", unsafe_allow_html=True)
 
-st.subheader(":blue[Heatmap of Team Performance (2015-2019)]")
+st.subheader(":blue[Heatmap of Team Performance (2016-2020)] 🌡️")
 # Create a pivot DataFrame to use for the visualisation.
 pivot_df = team_stats_df.pivot(
     index="team_name",  # Y axis
-    columns="season_start_year",  # X axis
+    columns="year",  # X axis
     values="win_pct"  # Cell values
 )
 # Rename columns for heatmap
 pivot_df = pivot_df.rename(columns={
     "team_name": "Team",
-    "season_start_year": "Year"
+    "year": "Year"
     }
 )
 

@@ -2,7 +2,6 @@ import pandas as pd
 import os
 from src.utils.trimming_whitespace_utils import trim_whitespaces
 from src.utils.remove_special_characters_utils import remove_special_characters
-from src.transform.clean_games import filter_2015_to_2019
 
 FILE_PATH = "data/processed/cleaned_salaries.csv"
 
@@ -60,3 +59,12 @@ def convert_year_to_numeric(salaries: pd.DataFrame) -> pd.DataFrame:
     )
 
     return salaries
+
+
+def filter_2015_to_2019(salaries: pd.DataFrame) -> pd.DataFrame:
+    # Filter only dates between 2014 and 2019
+    salaries_filtered = salaries[
+        (salaries["season_start_year"] >= 2015) &
+        (salaries["season_start_year"] <= 2019)]
+
+    return salaries_filtered

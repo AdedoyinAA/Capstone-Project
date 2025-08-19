@@ -5,7 +5,7 @@ from src.transform.clean_games import (
     rename_columns,
     remove_unnecessary_columns,
     filter_out_only_regular_season_games,
-    filter_2015_to_2019,
+    filter_2016_to_2020,
     trim_whitespaces,
     change_date_format
 )
@@ -23,7 +23,7 @@ def sample_games():
         "attendance": [16287, 20000],
         "notes": ["at Tokyo, Japan", "at Los Angeles, America"],
         "startET": ["7:30p", "10:30p"],
-        "datetime": ["01/11/2015", "01/12/1999"],
+        "datetime": ["2015-11-01", "1999-12-01"],
         "isRegular": [1, 0],
         "game_id": [25000, 26000]
     }
@@ -46,7 +46,6 @@ def test_trim_whitespaces():
 
 def test_rename_columns(sample_games):
     df = rename_columns(sample_games.copy())
-    assert "season_start_year " in df.columns
     assert "away_team " in df.columns
     assert "points_away " in df.columns
     assert "home_team" in df.columns
@@ -64,7 +63,7 @@ def test_filter_out_reg_season_games(sample_games):
         "attendance": [16287],
         "notes": ["at Tokyo, Japan"],
         "startET": ["7:30p"],
-        "datetime": ["01/11/2015"],
+        "datetime": ["2015-11-01"],
         "isRegular": [1],
         "game_id": [25000]
     }
@@ -73,28 +72,27 @@ def test_filter_out_reg_season_games(sample_games):
     pd.testing.assert_frame_equal(df.reset_index(drop=True), expected_df)
 
 
-def test_filter_2015_to_2019():
+def test_filter_2016_to_2020():
     data = {
-        "season_start_year": [2015, 1999],
         "away_team": ["Los Angeles Lakers", "Golden State Warriors"],
         "points_away": [100, 89],
         "home_team": ["Golden State Warriors", "Los Angeles Lakers"],
         "points_home": [100, 99],
-        "date_time": ["01/11/2015", "01/12/1999"],
+        "date_time": ["2016-01-01", "1999-01-01"],
         "game_id": [25000, 26000]
     }
     expected_data = {
-        "season_start_year": [2015],
         "away_team": ["Los Angeles Lakers"],
         "points_away": [100],
         "home_team": ["Golden State Warriors"],
         "points_home": [100],
-        "date_time": ["01/11/2015"],
+        "date_time": ["2016-01-01"],
         "game_id": [25000]
     }
     df = pd.DataFrame(data)
-    result = filter_2015_to_2019(df)
+    result = filter_2016_to_2020(df)
     expected_df = pd.DataFrame(expected_data)
+    expected_df["date_time"] = pd.to_datetime(expected_df["date_time"])
     pd.testing.assert_frame_equal(result.reset_index(drop=True), expected_df)
 
 

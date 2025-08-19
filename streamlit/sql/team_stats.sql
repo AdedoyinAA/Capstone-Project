@@ -1,5 +1,5 @@
 SELECT
-    season_start_year,
+    year,
     team_name,
     total_games,
     total_wins,

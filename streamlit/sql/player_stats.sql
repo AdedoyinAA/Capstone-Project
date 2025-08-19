@@ -1,0 +1,12 @@
+SELECT
+    player_name,
+    year,
+    points_per_game,
+    assists_per_game,
+    rebounds_per_game,
+    field_goal_pct_per_game,
+    three_point_pct_per_game,
+    free_throws_pct_per_game,
+    total_three_pointers
+FROM
+    de_2506_a.aa_player_stats;

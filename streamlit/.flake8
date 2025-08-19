@@ -12,3 +12,5 @@ exclude =
     htmlcov,
     notebooks,
     tests,
+    requirements.txt
+

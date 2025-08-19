@@ -1,0 +1,9 @@
+SELECT
+    year,
+    team_name,
+    total_games,
+    total_wins,
+    total_losses,
+    win_pct
+FROM
+    de_2506_a.aa_team_stats;

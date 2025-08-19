@@ -102,24 +102,24 @@ def test_calculate_field_goals_percentage():
     df = pd.DataFrame({"field_goals": [5, 0],
                        "field_goals_attempted": [10, 0]})
     df = calculate_field_goals_percentage(df)
-    assert df.loc[0, "field_goals_percentage_%"] == 50
-    assert df.loc[1, "field_goals_percentage_%"] == 0
+    assert df.loc[0, "field_goals_percentage"] == 50
+    assert df.loc[1, "field_goals_percentage"] == 0
 
 
 def test_calculate_three_point_percentage():
     df = pd.DataFrame({"three_pointers": [2, 0],
                        "three_pointers_attempted": [4, 0]})
     df = calculate_three_point_percentage(df)
-    assert df.loc[0, "three_point_percentage_%"] == 50
-    assert df.loc[1, "three_point_percentage_%"] == 0
+    assert df.loc[0, "three_point_percentage"] == 50
+    assert df.loc[1, "three_point_percentage"] == 0
 
 
 def test_calculate_free_throws_percentage():
     df = pd.DataFrame({"free_throws": [2, 0],
                        "free_throws_attempted": [4, 0]})
     df = calculate_free_throws_percentage(df)
-    assert df.loc[0, "free_throws_percentage_%"] == 50
-    assert df.loc[1, "free_throws_percentage_%"] == 0
+    assert df.loc[0, "free_throws_percentage"] == 50
+    assert df.loc[1, "free_throws_percentage"] == 0
 
 
 def test_clean_boxscores_runs(sample_boxscores, tmp_path):
@@ -131,5 +131,5 @@ def test_clean_boxscores_runs(sample_boxscores, tmp_path):
     # Check if CSV is saved
     assert cb.FILE_PATH.exists()
     # Check some columns exist after cleaning
-    assert "field_goals_percentage_%" not in df.columns or \
-        "field_goals_percentage_%" in df.columns
+    assert "field_goals_percentage" not in df.columns or \
+        "field_goals_percentage" in df.columns

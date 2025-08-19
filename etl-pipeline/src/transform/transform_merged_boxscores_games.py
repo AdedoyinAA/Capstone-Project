@@ -29,7 +29,7 @@ COLUMNS_TO_DROP = [
 
 def get_player_stats(data: pd.DataFrame) -> pd.DataFrame:
     player_stats_df = (
-        data.groupby(["player_name", "season_start_year"])
+        data.groupby(["player_name", "year"])
         .agg({
             "points": "mean",
             "assists": "mean",
@@ -99,7 +99,7 @@ def remove_duplicates(data: pd.DataFrame) -> pd.DataFrame:
 def get_total_number_of_wins(data: pd.DataFrame) -> pd.DataFrame:
     # Count total number of wins a team has
     total_wins_df = (
-        data.groupby(["season_start_year", "team_name"])["won_game"]
+        data.groupby(["year", "team_name"])["won_game"]
         .sum()
         .reset_index()
         .rename(columns={
@@ -113,7 +113,7 @@ def get_total_number_of_wins(data: pd.DataFrame) -> pd.DataFrame:
 def get_total_number_of_games_played(data: pd.DataFrame) -> pd.DataFrame:
     # Count total number of games a team played every year
     games_played_df = (
-        data.groupby(["season_start_year", "team_name"])["won_game"]
+        data.groupby(["year", "team_name"])["won_game"]
         .count()
         .reset_index()
         .rename(columns={
@@ -144,7 +144,7 @@ def get_team_stats(data: pd.DataFrame) -> pd.DataFrame:
     team_stats_df = pd.merge(
         games_played_df,
         total_wins_df,
-        on=["season_start_year", "team_name"])
+        on=["year", "team_name"])
 
     # Add a new column to find out how many losses a team had
     team_stats_df["total_losses"] = (

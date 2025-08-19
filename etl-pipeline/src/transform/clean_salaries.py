@@ -1,9 +1,13 @@
 import pandas as pd
+import os
 from src.utils.trimming_whitespace_utils import trim_whitespaces
 from src.utils.remove_special_characters_utils import remove_special_characters
 from src.transform.clean_games import filter_2015_to_2019
 
 FILE_PATH = "data/processed/cleaned_salaries.csv"
+
+# Create directory if it does not exist
+os.makedirs(os.path.dirname(FILE_PATH), exist_ok=True)
 
 
 def clean_salaries(salaries: pd.DataFrame) -> pd.DataFrame:

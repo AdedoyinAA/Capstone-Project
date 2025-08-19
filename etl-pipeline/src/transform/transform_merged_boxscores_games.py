@@ -1,7 +1,12 @@
 import pandas as pd
+import os
 
 PLAYER_STATS_FILE_PATH = "data/processed/player_stats.csv"
 TEAM_STATS_FILE_PATH = "data/processed/team_stats.csv"
+
+# Create directory if it does not exist
+os.makedirs(os.path.dirname(PLAYER_STATS_FILE_PATH), exist_ok=True)
+os.makedirs(os.path.dirname(TEAM_STATS_FILE_PATH), exist_ok=True)
 
 COLUMNS_TO_DROP = [
     "player_name",

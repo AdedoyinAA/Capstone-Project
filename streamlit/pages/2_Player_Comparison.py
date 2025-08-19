@@ -1,9 +1,9 @@
 import streamlit as st
-import pandas as pd
 from sqlalchemy import create_engine
-from utils.sql_utils import load_sql_query
+from utils.load_sql_query_utils import load_table
 
 
+FILE_NAME = "player_info_and_salaries.sql"
 st.set_page_config(
     page_title="Player Comparison",
     layout="wide",
@@ -24,17 +24,7 @@ engine = create_engine(
 )
 
 
-# Cache the function so it doesn't rerun every time the streamlit app reloads
-@st.cache_data
-def load_player_info():
-    try:
-        query = load_sql_query("player_info_and_salaries.sql")
-        return pd.read_sql(query, engine)
-    except Exception as e:
-        st.error(f"Error fetching data: {e}")
-
-
-player_info_df = load_player_info()
+player_info_df = load_table(FILE_NAME, engine)
 
 
 player_info_df = player_info_df.drop_duplicates(

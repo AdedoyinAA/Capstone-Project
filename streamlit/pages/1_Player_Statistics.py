@@ -1,9 +1,11 @@
 import streamlit as st
 import pandas as pd
 from sqlalchemy import create_engine
-from utils.sql_utils import load_sql_query
+from utils.load_sql_query_utils import load_table
 import plotly.express as px
 
+
+FILE_NAME = "player_stats.sql"
 st.set_page_config(
     page_title="Player Stats",
     layout="wide",
@@ -24,17 +26,7 @@ engine = create_engine(
 )
 
 
-# Cache the function so it doesn't rerun every time the streamlit app reloads
-@st.cache_data
-def load_player_stats():
-    try:
-        query = load_sql_query("player_stats.sql")
-        return pd.read_sql(query, engine)
-    except Exception as e:
-        st.error(f"Error fetching data: {e}")
-
-
-player_stats_df = load_player_stats()
+player_stats_df = load_table(FILE_NAME, engine)
 
 # Get all the players and all the years
 all_years = range(2016, 2021)
@@ -99,6 +91,10 @@ filtered_player_stats_df = player_stats_df_full[
     & (player_stats_df_full["player_name"] == selected_player)
 ]
 
+# Filter to get only the player
+filtered_only_player = player_stats_df_full[
+    player_stats_df_full["player_name"] == selected_player]
+
 # Show player stats as metrics
 column_1, column_2 = st.columns(2)
 with column_1:
@@ -155,6 +151,49 @@ top_three_pointers_df = (
 top_three_pointers_df = top_three_pointers_df.head(10)
 
 
+# Mapping of column names to display names
+stat_options = {
+    "points_per_game": "Points per Game (ppg)",
+    "assists_per_game": "Assists per Game (apg)",
+    "rebounds_per_game": "Rebounds per Game (rpg)"
+}
+
+# Multi-select to choose which stats to show
+selected_stats = st.multiselect(
+    label="Select Stats to Plot:",
+    options=list(stat_options.values()),
+    default=list(stat_options.values()),
+    help="Choose which stats you want to plot"
+)
+
+# Convert back to column names for plotting
+selected_stats_columns = [
+    key for key, value in stat_options.items() if value in selected_stats
+]
+
+# Line graph to show how stats changed over the years
+if selected_stats:
+    line_chart = px.line(
+        filtered_only_player,
+        x="year",
+        y=selected_stats_columns,
+        markers=True,
+        title=f"{selected_player}'s Performance Over The Years",
+        labels={"year": "Year", "value": "Per Game Stats", "variable": "Stat"}
+    )
+    # Fix the x-axis to show exact year values without offset
+    line_chart.update_xaxes(
+        tickmode='array',
+        tickvals=filtered_only_player['year'].unique(),
+        ticktext=filtered_only_player['year'].unique()
+    )
+    line_chart.update_layout(title_font=dict(size=22, color="#60b4ff"))
+    st.plotly_chart(line_chart, use_container_width=True)
+else:
+    st.error("Please select at least one stat to display.")
+
+st.markdown("<div style='margin-top: 100px;'></div>", unsafe_allow_html=True)
+
 # Plot the bar chart
 bar_chart = px.bar(
     top_three_pointers_df,
@@ -169,6 +208,7 @@ bar_chart = px.bar(
     }
 )
 
+# Update the title color and size
 bar_chart.update_layout(title_font=dict(size=32, color='#60b4ff'))
 
 st.plotly_chart(bar_chart, use_container_width=True)

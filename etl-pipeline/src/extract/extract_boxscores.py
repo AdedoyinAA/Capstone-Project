@@ -20,7 +20,7 @@ TYPE = "BOX SCORES from KAGGLE"
 EXPECTED_PERFORMANCE = 1
 
 
-def extract_boxscores_csv():
+def extract_csvs():
     try:
         check_kaggle_credentials()
         dataset = "patrickhallila1994/nba-data-from-basketball-reference"
@@ -33,7 +33,7 @@ def extract_boxscores_csv():
 
 
 def extract_boxscores() -> pd.DataFrame:
-    # extract_boxscores_csv() No need to continue downloading the CSV files
+    # extract_csvs()  Stop downloading CSVs after first run
     # Performance analysis
     start_time = timeit.default_timer()
 

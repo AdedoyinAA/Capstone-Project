@@ -4,7 +4,7 @@ from unittest.mock import patch
 from src.extract.extract_boxscores import (
     KaggleDownloadError,
     KaggleConnectionError,
-    extract_boxscores_csv,
+    extract_csvs,
     extract_boxscores,
     TYPE,
     FILE_PATH,
@@ -96,7 +96,7 @@ def test_log_boxscores_error(mocker, mock_logger):
        side_effect=KaggleConnectionError("No creds"))
 def test_extract_boxscores_csv_connection_error(mock_check, caplog):
     with caplog.at_level(logging.ERROR):
-        extract_boxscores_csv()
+        extract_csvs()
     assert "Connection failed: No creds" in caplog.text
     mock_check.assert_called_once()
 
@@ -108,7 +108,7 @@ def test_extract_boxscores_csv_download_error(mock_download,
                                               mock_check,
                                               caplog):
     with caplog.at_level(logging.ERROR):
-        extract_boxscores_csv()
+        extract_csvs()
 
     assert "Download failed: Download failed" in caplog.text
     mock_check.assert_called_once()

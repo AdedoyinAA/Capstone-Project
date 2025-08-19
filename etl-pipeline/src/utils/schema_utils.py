@@ -1,6 +1,10 @@
 import os
 import sys
 from dotenv import load_dotenv
+from src.utils.logging_utils import setup_logger
+
+# Setup logger
+logger = setup_logger("schema", "schema.log")
 
 
 def set_schema():
@@ -19,7 +23,7 @@ def set_schema():
 
     # Read ENV value from env file
     env = os.getenv("ENV", mode)
-    print("Current mode:", mode, "ENV variable:", env)
+    logger.info(f"Current mode: {mode}, ENV variable: {env}")
 
     # Pick schema
     BASE_SCHEMA = "de_2506_a"

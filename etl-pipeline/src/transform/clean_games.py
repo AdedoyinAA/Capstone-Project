@@ -1,7 +1,11 @@
 import pandas as pd
+import os
 from src.utils.trimming_whitespace_utils import trim_whitespaces
 
 FILE_PATH = "data/processed/cleaned_games.csv"
+
+# Create directory if it does not exist
+os.makedirs(os.path.dirname(FILE_PATH), exist_ok=True)
 
 
 def clean_games(games: pd.DataFrame) -> pd.DataFrame:

@@ -1,6 +1,10 @@
 import pandas as pd
+import os
 
 FILE_PATH = "data/processed/merged_playerinfo_salaries.csv"
+
+# Create directory if it does not exist
+os.makedirs(os.path.dirname(FILE_PATH), exist_ok=True)
 
 
 def merge_playerinfo_salaries(

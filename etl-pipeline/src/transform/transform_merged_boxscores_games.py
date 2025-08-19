@@ -21,9 +21,9 @@ COLUMNS_TO_DROP = [
     "assists",
     "points",
     "is_starter",
-    "field_goals_percentage_%",
-    "three_point_percentage_%",
-    "free_throws_percentage_%"
+    "field_goals_percentage",
+    "three_point_percentage",
+    "free_throws_percentage"
 ]
 
 
@@ -34,27 +34,27 @@ def get_player_stats(data: pd.DataFrame) -> pd.DataFrame:
             "points": "mean",
             "assists": "mean",
             "total_rebounds": "mean",
-            "field_goals_percentage_%": "mean",
-            "three_point_percentage_%": "mean",
-            "free_throws_percentage_%": "mean",
+            "field_goals_percentage": "mean",
+            "three_point_percentage": "mean",
+            "free_throws_percentage": "mean",
             "three_pointers": "sum"
         })
         .round({
             "points": 1,
             "assists": 1,
             "total_rebounds": 1,
-            "field_goals_percentage_%": 2,
-            "free_throws_percentage_%": 2,
-            "three_point_percentage_%": 2,
+            "field_goals_percentage": 2,
+            "free_throws_percentage": 2,
+            "three_point_percentage": 2,
         })
         .reset_index()
         .rename(columns={
             "points": "points_per_game",
             "assists": "assists_per_game",
             "total_rebounds": "rebounds_per_game",
-            "field_goals_percentage_%": "field_goal_%_per_game",
-            "three_point_percentage_%": "three_point_%_per_game",
-            "free_throws_percentage_%": "free_throws_%_per_game",
+            "field_goals_percentage": "field_goal_pct_per_game",
+            "three_point_percentage": "three_point_pct_per_game",
+            "free_throws_percentage": "free_throws_pct_per_game",
             "three_pointers": "total_three_pointers"
         })
     )
@@ -152,7 +152,7 @@ def get_team_stats(data: pd.DataFrame) -> pd.DataFrame:
     )
 
     # Add a new column to calculate the win percentage
-    team_stats_df["win_%"] = (
+    team_stats_df["win_pct"] = (
         (team_stats_df["total_wins"] / team_stats_df["total_games"] * 100)
         .round(2)
     )

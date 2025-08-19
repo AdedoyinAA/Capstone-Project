@@ -113,21 +113,21 @@ def rename_columns(boxscores: pd.DataFrame) -> pd.DataFrame:
 
 def calculate_field_goals_percentage(boxscores: pd.DataFrame) -> pd.DataFrame:
     # Add a new column which calculates the field goals percentage
-    boxscores["field_goals_percentage_%"] = (
+    boxscores["field_goals_percentage"] = (
         boxscores["field_goals"] / boxscores["field_goals_attempted"] * 100
     ).round(2)
 
     # Change NaN values to 0
     boxscores.loc[boxscores[
         "field_goals_attempted"] == 0,
-        "field_goals_percentage_%"] = 0
+        "field_goals_percentage"] = 0
 
     return boxscores
 
 
 def calculate_three_point_percentage(boxscores: pd.DataFrame) -> pd.DataFrame:
     # Add a new column which calculates the three pointers percentage
-    boxscores["three_point_percentage_%"] = (
+    boxscores["three_point_percentage"] = (
         (boxscores["three_pointers"]
          / boxscores["three_pointers_attempted"]
          * 100)
@@ -136,14 +136,14 @@ def calculate_three_point_percentage(boxscores: pd.DataFrame) -> pd.DataFrame:
     # Change NaN values to 0
     boxscores.loc[boxscores[
         "three_pointers_attempted"] == 0,
-        "three_point_percentage_%"] = 0
+        "three_point_percentage"] = 0
 
     return boxscores
 
 
 def calculate_free_throws_percentage(boxscores: pd.DataFrame) -> pd.DataFrame:
     # Add a new column which calculates the free throws percentage
-    boxscores["free_throws_percentage_%"] = (
+    boxscores["free_throws_percentage"] = (
         (boxscores["free_throws"]
          / boxscores["free_throws_attempted"]
          * 100)
@@ -152,6 +152,6 @@ def calculate_free_throws_percentage(boxscores: pd.DataFrame) -> pd.DataFrame:
     # Change NaN values to 0
     boxscores.loc[boxscores[
         "free_throws_attempted"] == 0,
-        "free_throws_percentage_%"] = 0
+        "free_throws_percentage"] = 0
 
     return boxscores

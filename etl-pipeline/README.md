@@ -54,7 +54,7 @@ pip install -r requirements.txt
 ```bash
 pip install -e .
 ```
-5. **Add `.env` file and add these variables (fill with your own database details)**:
+5. **Add `.env.test` file and add these variables (fill with your own database details)**:
 ```env
 TARGET_DB_NAME=<your_db_name>
 TARGET_DB_USER=<your_db_user>

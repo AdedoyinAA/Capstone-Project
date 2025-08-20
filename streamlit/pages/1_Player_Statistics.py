@@ -1,9 +1,11 @@
 import streamlit as st
 import pandas as pd
 from sqlalchemy import create_engine
-from utils.sql_utils import load_sql_query
+from utils.load_sql_query_utils import load_table
 import plotly.express as px
 
+
+FILE_NAME = "player_stats.sql"
 st.set_page_config(
     page_title="Player Stats",
     layout="wide",
@@ -24,17 +26,7 @@ engine = create_engine(
 )
 
 
-# Cache the function so it doesn't rerun every time the streamlit app reloads
-@st.cache_data
-def load_player_stats():
-    try:
-        query = load_sql_query("player_stats.sql")
-        return pd.read_sql(query, engine)
-    except Exception as e:
-        st.error(f"Error fetching data: {e}")
-
-
-player_stats_df = load_player_stats()
+player_stats_df = load_table(FILE_NAME, engine)
 
 # Get all the players and all the years
 all_years = range(2016, 2021)
@@ -51,7 +43,7 @@ player_stats_df_full = player_stats_df.set_index(
     ["player_name", "year"]
 ).reindex(full_index).reset_index()
 
-# Fill numeric stats with 0 and percentages with NaN
+# Fill null stats with 0
 count_stats = [
     "points_per_game",
     "assists_per_game",
@@ -66,13 +58,17 @@ percentage_stats = [
 
 player_stats_df_full[count_stats] = player_stats_df_full[count_stats].fillna(0)
 player_stats_df_full[percentage_stats] = \
-    player_stats_df_full[percentage_stats].astype("float")
+    player_stats_df_full[percentage_stats].fillna(0)
 
 # Get the years
 years = sorted(player_stats_df_full["year"].unique())
 
 # Add a dropdown to select year
-selected_year = st.selectbox("Select a Year:", years)
+selected_year = st.selectbox(
+    label="Select a Year:",
+    options=years,
+    help="Choose a year"
+)
 
 # Filter players based on selected year
 players_for_year = player_stats_df_full.loc[
@@ -81,7 +77,12 @@ players_for_year = player_stats_df_full.loc[
 
 # Add a dropdown to select player
 
-selected_player = st.selectbox("Select a Player:", sorted(players_for_year))
+selected_player = st.selectbox(
+    label="Select a Player:",
+    options=sorted(players_for_year),
+    help=("Choose a player"),
+    index=823  # Default is Stephen Curry
+)
 
 st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
 
@@ -90,6 +91,10 @@ filtered_player_stats_df = player_stats_df_full[
     (player_stats_df_full["year"] == selected_year)
     & (player_stats_df_full["player_name"] == selected_player)
 ]
+
+# Filter to get only the player
+filtered_only_player = player_stats_df_full[
+    player_stats_df_full["player_name"] == selected_player]
 
 # Show player stats as metrics
 column_1, column_2 = st.columns(2)
@@ -133,7 +138,51 @@ with column_2:
         help="Free throws percentage per game in the year"
     )
 
-st.markdown("<div style='margin-top: 100px;'></div>", unsafe_allow_html=True)
+st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
+st.markdown("---")
+st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
+
+
+# Mapping of column names to display names
+stat_options = {
+    "points_per_game": "Points per Game (ppg)",
+    "assists_per_game": "Assists per Game (apg)",
+    "rebounds_per_game": "Rebounds per Game (rpg)"
+}
+
+# Multi-select to choose which stats to show
+selected_stats = st.multiselect(
+    label="Select Stats to Plot:",
+    options=list(stat_options.values()),
+    default=list(stat_options.values()),
+    help="Choose which stats you want to plot"
+)
+
+# Convert back to column names for plotting
+selected_stats_columns = [
+    key for key, value in stat_options.items() if value in selected_stats
+]
+
+# Line graph to show how stats changed over the years
+if selected_stats:
+    line_chart = px.line(
+        filtered_only_player,
+        x="year",
+        y=selected_stats_columns,
+        markers=True,
+        title=f"{selected_player}'s Performance Over The Years",
+        labels={"year": "Year", "value": "Per Game Stats", "variable": "Stat"}
+    )
+    # Fix the x-axis to show exact year values without offset
+    line_chart.update_xaxes(
+        tickmode='array',
+        tickvals=filtered_only_player['year'].unique(),
+        ticktext=filtered_only_player['year'].unique()
+    )
+    line_chart.update_layout(title_font=dict(size=22, color="#60b4ff"))
+    st.plotly_chart(line_chart, use_container_width=True)
+else:
+    st.error("Please select at least one stat to display.")
 
 # Top three point shooters across all years
 top_three_pointers_df = (
@@ -144,8 +193,11 @@ top_three_pointers_df = (
 )
 
 # Take the first 10 players
-top_three_pointers_df = top_three_pointers_df.head(10)
+top_three_pointers_df = top_three_pointers_df.head()
 
+st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
+st.markdown("---")
+st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
 
 # Plot the bar chart
 bar_chart = px.bar(
@@ -154,13 +206,44 @@ bar_chart = px.bar(
     y="total_three_pointers",
     color="total_three_pointers",
     color_continuous_scale="Blues",
-    title="Top 10 Players by Total Three-Pointers",
+    title="Top 5 Players by Total Three-Pointers",
     labels={
-        "player_name": "Player",
+        "player_name": "Player Name",
         "total_three_pointers": "Total 3-Pointers"
     }
 )
 
-bar_chart.update_layout(title_font=dict(size=32, color='#60b4ff'))
+# Update the title color and size
+bar_chart.update_layout(title_font=dict(size=22, color='#60b4ff'))
 
 st.plotly_chart(bar_chart, use_container_width=True)
+
+# Most accurate free throw shooters
+top_free_throws_df = (
+    player_stats_df
+    .groupby("player_name", as_index=False)["free_throws_pct_per_game"]
+    .mean()
+    .sort_values(by="free_throws_pct_per_game", ascending=False)
+)
+
+# Take the first 10
+top_free_throws_df = top_free_throws_df.head()
+
+# Plot the bar chart
+bar_chart_2 = px.bar(
+    top_free_throws_df,
+    x="player_name",
+    y="free_throws_pct_per_game",
+    color="free_throws_pct_per_game",
+    color_continuous_scale="Blues",
+    title="Top 5 Players by Free Throw Accuracy",
+    labels={
+        "player_name": "Player Name",
+        "free_throws_pct_per_game": "Free Throw Accuracy"
+    }
+)
+
+# Update the title color and size
+bar_chart_2.update_layout(title_font=dict(size=22, color='#60b4ff'))
+
+st.plotly_chart(bar_chart_2, use_container_width=True)

@@ -1,0 +1,13 @@
+SELECT
+    season_start_year,
+    player_name,
+    position,
+    height,
+    weight,
+    birth_date,
+    weight_kg,
+    height_m,
+    salary,
+    inflation_adjusted_salary
+FROM
+    de_2506_a.aa_player_info_and_salaries;

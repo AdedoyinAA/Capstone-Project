@@ -39,13 +39,14 @@ def create_player_stats(player_stats: pd.DataFrame) -> None:
             TABLE_NAME,
             con=connection,
             schema=schema,
-            if_exists="replace",
+            if_exists="replace",  # Replace the table if it exists
             index=False
         )
 
         action = "replaced with" if table_exists else "created and loaded into"
         logger.info(f"Data successfully {action} {TABLE_NAME} table.")
 
+        # This persists the changes in the database
         connection.commit()
 
     except DatabaseConfigError as e:

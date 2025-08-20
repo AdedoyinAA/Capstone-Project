@@ -1,18 +1,28 @@
 import streamlit as st
 import pandas as pd
 from sqlalchemy import create_engine
-from utils.sql_utils import load_sql_query
+from utils.load_sql_query_utils import load_table
 import plotly.express as px
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
+FILE_NAME = "team_stats.sql"
 st.set_page_config(
     page_title="HoopMetrics",
     layout="wide",
     initial_sidebar_state="auto",
 )
 
-st.title(":blue[HoopMetrics] 🏀")
+
+column_1, column_2, column_3 = st.columns([1, 2, 1])
+with column_2:
+    st.image("images/nba_logo.avif")
+
+st.markdown(
+    "<h1 style='text-align: center; color: #60b4ff;'>HoopMetrics! 🏀</h1>",
+    unsafe_allow_html=True
+)
 
 
 # Load database credentials from secrets.toml
@@ -25,26 +35,23 @@ engine = create_engine(
     f"{db_config['SOURCE_DB_PORT']}/{db_config['SOURCE_DB_NAME']}"
 )
 
-
-# Cache the function so it doesn't rerun every time the streamlit app reloads
-@st.cache_data
-def load_team_stats():
-    try:
-        query = load_sql_query("team_stats.sql")
-        return pd.read_sql(query, engine)
-    except Exception as e:
-        st.error(f"Error fetching data: {e}")
-
-
-team_stats_df = load_team_stats()
+team_stats_df = load_table(FILE_NAME, engine)
 
 # Get the years
 years = sorted(team_stats_df["year"].unique())
 
-st.subheader(":blue[Individual Team Stats] 📊")
+st.markdown(
+    "<h3 style='font-size:32px; color:#60b4ff;'>"
+    "Team Statistics 📊</h3>",
+    unsafe_allow_html=True
+)
 
 # Add dropdown for year selection
-selected_year = st.selectbox("Select a Year:", years)
+selected_year = st.selectbox(
+    label="Select a Year:",
+    options=years,
+    help="Choose a year"
+)
 
 # Filter teams based on selected year
 teams_for_year = team_stats_df.loc[
@@ -52,7 +59,12 @@ teams_for_year = team_stats_df.loc[
 ].unique()
 
 # Add dropdown for team selection
-selected_team = st.selectbox("Select a Team:", sorted(teams_for_year))
+selected_team = st.selectbox(
+    label="Select a Team:",
+    options=sorted(teams_for_year),
+    help="Choose a team",
+    index=9  # Default is Golden State Warriors :)
+)
 
 st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
 
@@ -103,22 +115,30 @@ with column_3:
         help="Total number of games"
     )
     st.metric(
-        label=":blue[Win Percentage]",
+        label=":blue[Win Percentage (%)]",
         value=filtered_team_stats_df["win_pct"],
         border=True,
         help="Win percentage for games in the year"
     )
 
+st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
+st.markdown("---")
+st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
 
-st.markdown("<div style='margin-top: 100px;'></div>", unsafe_allow_html=True)
+st.markdown(
+    "<h3 style='font-size:32px; color:#60b4ff;'>"
+    "Heatmap of Team Performance (2016-2020) 🌡️</h3>",
+    unsafe_allow_html=True
+)
 
-st.subheader(":blue[Heatmap of Team Performance (2016-2020)] 🌡️")
 # Create a pivot DataFrame to use for the visualisation.
 pivot_df = team_stats_df.pivot(
     index="team_name",  # Y axis
     columns="year",  # X axis
     values="win_pct"  # Cell values
 )
+
+
 # Rename columns for heatmap
 pivot_df = pivot_df.rename(columns={
     "team_name": "Team",

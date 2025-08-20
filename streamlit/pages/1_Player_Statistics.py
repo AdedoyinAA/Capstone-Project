@@ -193,7 +193,7 @@ top_three_pointers_df = (
 )
 
 # Take the first 10 players
-top_three_pointers_df = top_three_pointers_df.head()
+top_three_pointers_df = top_three_pointers_df.head(10)
 
 st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
 st.markdown("---")
@@ -206,9 +206,9 @@ bar_chart = px.bar(
     y="total_three_pointers",
     color="total_three_pointers",
     color_continuous_scale="Blues",
-    title="Top 5 Players by Total Three-Pointers",
+    title="Top 10 Players by Total Three-Pointers",
     labels={
-        "player_name": "Player Name",
+        "player_name": "Player",
         "total_three_pointers": "Total 3-Pointers"
     }
 )
@@ -218,28 +218,28 @@ bar_chart.update_layout(title_font=dict(size=22, color='#60b4ff'))
 
 st.plotly_chart(bar_chart, use_container_width=True)
 
-# Most accurate free throw shooters
-top_free_throws_df = (
+# Most point scorers
+top_points_per_game_df = (
     player_stats_df
-    .groupby("player_name", as_index=False)["free_throws_pct_per_game"]
+    .groupby("player_name", as_index=False)["points_per_game"]
     .mean()
-    .sort_values(by="free_throws_pct_per_game", ascending=False)
+    .sort_values(by="points_per_game", ascending=False)
 )
 
 # Take the first 10
-top_free_throws_df = top_free_throws_df.head()
+top_points_per_game_df = top_points_per_game_df.head(10)
 
 # Plot the bar chart
 bar_chart_2 = px.bar(
-    top_free_throws_df,
+    top_points_per_game_df,
     x="player_name",
-    y="free_throws_pct_per_game",
-    color="free_throws_pct_per_game",
+    y="points_per_game",
+    color="points_per_game",
     color_continuous_scale="Blues",
-    title="Top 5 Players by Free Throw Accuracy",
+    title="Top 10 Players by Points per Game",
     labels={
-        "player_name": "Player Name",
-        "free_throws_pct_per_game": "Free Throw Accuracy"
+        "player_name": "Player",
+        "points_per_game": "Points per Game (ppg)"
     }
 )
 

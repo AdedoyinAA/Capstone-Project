@@ -1,6 +1,7 @@
-# NBA Stats ETL Pipeline
+![NBA Logo](/etl-pipeline/images/nba_logo.avif)
+# HoopMetrics ETL Pipeline
 
-This ETL pipeline successfully extracts, cleans, transforms, enriches and loads the dataset into the Pagila SQL database.
+This ETL pipeline successfully extracts, cleans, transforms, enriches and loads the NBA dataset into the Pagila SQL database.
 
 ---
 ## Prerequisites:
@@ -8,16 +9,16 @@ Kaggle API Key (for Linux/Mac users):
 - Create or Sign in to [Kaggle](https://www.kaggle.com).
 - Go to Account settings and create an API token. This would download a `kaggle.json` file.
 - Store this file in:
-  - ~/.kaggle/kaggle.json
+  - `~/.kaggle/kaggle.json`
   
 For Windows users:
 - Go to [Kaggle NBA Dataset](https://www.kaggle.com/datasets/patrickhallila1994/nba-data-from-basketball-reference/data?select=boxscore.csv).
 - Download the CSVs.
 - Create a new directory `data/raw` in `Capstone-Project/etl_pipeline` and save the CSV files here.
 
-N.B: One of the functions would fail for Windows users which checks for the Kaggle API key but the pipeline would run fine.
+**N.B**: One of the functions would fail for Windows users which checks for the Kaggle API key but the pipeline would run fine.
 
-Local PostgreSQL Instance:
+**Local PostgreSQL Instance:**
 - Assuming postgreSQL is already set up on your device, connect to your database instance and create a new database using the following:
 ```bash
 # Using psql
@@ -36,13 +37,15 @@ cd Capstone-Project/etl-pipeline
 ```
 2. **Setup virtual environment**:
 ```bash
+python -m venv .venv
+# or with python3
 python3 -m venv .venv
 ```
-- For Windows
+- For Windows:
 ```bash
 source .venv/Scripts/activate
 ```
-- For MacOS/Linux
+- For MacOS/Linux:
 ```bash
 source .venv/bin/activate
 ```
@@ -69,5 +72,8 @@ run_etl test
 python -m scripts.run_etl test
 ```
 
-N.B: On Mac/Linux, everytime the pipeline is executed, the entire dataset would be downloaded from Kaggle. To prevent this, you can comment out the `extract_csvs()` function in the `src/extract/extract_boxscores.py` file.
+N.B: After downloading/extracting the CSVs, you only need to keep the `boxscore.csv`, `games.csv`, `player_info.csv` and `salaries.csv` files. The rest can be deleted from the `data/raw` directory.
+
+On Mac/Linux, everytime the pipeline is executed, the entire dataset would be downloaded from Kaggle. To prevent this, you can comment out the `extract_csvs()` function in the `src/extract/extract_boxscores.py` file.
+
 

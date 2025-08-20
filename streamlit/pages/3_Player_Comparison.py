@@ -61,22 +61,75 @@ player_2_info = player_info_df[
 # Display the players' info
 column_1, column_2 = st.columns(2)
 with column_1:
-    st.subheader(player_1)
-    st.write(f"**Height:** {player_1_info["height_m"]}m")
-    st.write(f"**Weight:** {player_1_info["weight_kg"]}kg")
-    st.write(f"**Position(s):** {player_1_info["position"]}")
-    st.write(f"**Date of Birth:** {player_1_info["birth_date"]}")
-    st.write(
-        f"**Salary (Inflation Adjusted):** "
-        f"${player_1_info["inflation_adjusted_salary"]}"
+    st.markdown(
+        "<h3 style='font-size:32px; color:#60b4ff;'>"
+        f"{player_1} </h3>",
+        unsafe_allow_html=True
     )
+    st.metric(
+        label=":blue[Height (m)]",
+        value=f"{player_1_info['height_m']}",
+        border=True,
+        help="Player's height in metres"
+    )
+    st.metric(
+        label=":blue[Weight (kg)]",
+        value=f"{player_1_info['weight_kg']}",
+        border=True,
+        help="Player's height in metres"
+    )
+    st.metric(
+        label=":blue[Position(s)]",
+        value=f"{player_1_info['position']}",
+        border=True,
+        help="Player's weight in kilograms"
+    )
+    st.metric(
+        label=":blue[Date of Birth]",
+        value=f"{player_1_info['birth_date']}",
+        border=True,
+        help="Player's date of birth"
+    )
+    st.metric(
+        label=":blue[Salary (Inflation Adjusted)]",
+        value=f"${player_1_info['inflation_adjusted_salary']}",
+        border=True,
+        help="Player's salary per year"
+    )
+
 with column_2:
-    st.subheader(player_2)
-    st.write(f"**Height:** {player_2_info["height_m"]}m")
-    st.write(f"**Weight:** {player_2_info["weight_kg"]}kg")
-    st.write(f"**Position(s):** {player_2_info["position"]}")
-    st.write(f"**Date of Birth:** {player_2_info["birth_date"]}")
-    st.write(
-        f"**Salary (Inflation Adjusted):** "
-        f"${player_2_info["inflation_adjusted_salary"]}"
+    st.markdown(
+        "<h3 style='font-size:32px; color:#ff4b4b;'>"
+        f"{player_2} </h3>",
+        unsafe_allow_html=True
+    )
+    st.metric(
+        label=":red[Height (m)]",
+        value=f"{player_2_info['height_m']}",
+        border=True,
+        help="Player's height in metres"
+    )
+    st.metric(
+        label=":red[Weight (kg)]",
+        value=f"{player_2_info['weight_kg']}",
+        border=True,
+        help="Player's height in metres"
+    )
+    st.metric(
+        label=":red[Position(s)]",
+        value=f"{player_2_info['position']}",
+        border=True,
+        help="Player's weight in kilograms"
+    )
+    st.metric(
+        label=":red[Date of Birth]",
+        value=f"{player_2_info['birth_date']}",
+        border=True,
+        help="Player's date of birth"
+    )
+    st.metric(
+        label=":red[Salary (Inflation Adjusted)]",
+        value=f"${player_2_info['inflation_adjusted_salary']}",
+        border=True,
+        help="Player's salary per year"
     )

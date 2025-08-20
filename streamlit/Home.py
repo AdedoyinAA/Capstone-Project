@@ -17,7 +17,7 @@ st.set_page_config(
 
 column_1, column_2, column_3 = st.columns([1, 2, 1])
 with column_2:
-    st.image("../images/nba_logo.avif")
+    st.image("./images/nba_logo.avif")
 
 st.markdown(
     "<h1 style='text-align: center; color: #60b4ff;'>HoopMetrics! 🏀</h1>",

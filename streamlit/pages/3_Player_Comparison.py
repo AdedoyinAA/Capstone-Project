@@ -10,7 +10,7 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
-st.title(":blue[Player Comparison] 🆚")
+st.title(":blue[Player Comparison] ⚖️")
 
 
 # Load database credentials from secrets.toml
@@ -26,10 +26,10 @@ engine = create_engine(
 
 player_info_df = load_table(FILE_NAME, engine)
 
-
+# Keep the most recent information for each player
 player_info_df = player_info_df.drop_duplicates(
     subset="player_name",
-    keep="first"
+    keep="last"
 )
 
 
@@ -66,9 +66,17 @@ with column_1:
     st.write(f"**Weight:** {player_1_info["weight_kg"]}kg")
     st.write(f"**Position(s):** {player_1_info["position"]}")
     st.write(f"**Date of Birth:** {player_1_info["birth_date"]}")
+    st.write(
+        f"**Salary (Inflation Adjusted):** "
+        f"${player_1_info["inflation_adjusted_salary"]}"
+    )
 with column_2:
     st.subheader(player_2)
     st.write(f"**Height:** {player_2_info["height_m"]}m")
     st.write(f"**Weight:** {player_2_info["weight_kg"]}kg")
     st.write(f"**Position(s):** {player_2_info["position"]}")
     st.write(f"**Date of Birth:** {player_2_info["birth_date"]}")
+    st.write(
+        f"**Salary (Inflation Adjusted):** "
+        f"${player_2_info["inflation_adjusted_salary"]}"
+    )

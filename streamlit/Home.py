@@ -14,9 +14,9 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
-    st.image("images/NBA.Com-National-Basketball-Association.png.avif")
+column_1, column_2, column_3 = st.columns([1, 2, 1])
+with column_2:
+    st.image("images/nba_logo.avif")
 
 st.markdown(
     "<h1 style='text-align: center; color: #60b4ff;'>HoopMetrics! 🏀</h1>",
@@ -40,7 +40,11 @@ team_stats_df = load_table(FILE_NAME, engine)
 # Get the years
 years = sorted(team_stats_df["year"].unique())
 
-st.subheader(":blue[Individual Team Stats] 📊")
+st.markdown(
+    "<h3 style='font-size:32px; color:#60b4ff;'>"
+    "Team Statistics 📊</h3>",
+    unsafe_allow_html=True
+)
 
 # Add dropdown for year selection
 selected_year = st.selectbox(
@@ -58,7 +62,8 @@ teams_for_year = team_stats_df.loc[
 selected_team = st.selectbox(
     label="Select a Team:",
     options=sorted(teams_for_year),
-    help="Choose a team"
+    help="Choose a team",
+    index=9  # Default is Golden State Warriors :)
 )
 
 st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
@@ -110,16 +115,22 @@ with column_3:
         help="Total number of games"
     )
     st.metric(
-        label=":blue[Win Percentage]",
+        label=":blue[Win Percentage (%)]",
         value=filtered_team_stats_df["win_pct"],
         border=True,
         help="Win percentage for games in the year"
     )
 
 
-st.markdown("<div style='margin-top: 100px;'></div>", unsafe_allow_html=True)
+st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
+st.markdown("---")
+st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
 
-st.subheader(":blue[Heatmap of Team Performance (2016-2020)] 🌡️")
+st.markdown(
+    "<h3 style='font-size:32px; color:#60b4ff;'>"
+    "Heatmap of Team Performance (2016-2020) 🌡️</h3>",
+    unsafe_allow_html=True
+)
 
 # Create a pivot DataFrame to use for the visualisation.
 pivot_df = team_stats_df.pivot(
@@ -127,6 +138,7 @@ pivot_df = team_stats_df.pivot(
     columns="year",  # X axis
     values="win_pct"  # Cell values
 )
+
 # Rename columns for heatmap
 pivot_df = pivot_df.rename(columns={
     "team_name": "Team",

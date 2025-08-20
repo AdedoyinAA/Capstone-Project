@@ -14,6 +14,7 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
+
 column_1, column_2, column_3 = st.columns([1, 2, 1])
 with column_2:
     st.image("images/nba_logo.avif")
@@ -33,7 +34,6 @@ engine = create_engine(
     f"{db_config['SOURCE_DB_HOST']}:"
     f"{db_config['SOURCE_DB_PORT']}/{db_config['SOURCE_DB_NAME']}"
 )
-
 
 team_stats_df = load_table(FILE_NAME, engine)
 
@@ -121,7 +121,6 @@ with column_3:
         help="Win percentage for games in the year"
     )
 
-
 st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
 st.markdown("---")
 st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
@@ -138,6 +137,7 @@ pivot_df = team_stats_df.pivot(
     columns="year",  # X axis
     values="win_pct"  # Cell values
 )
+
 
 # Rename columns for heatmap
 pivot_df = pivot_df.rename(columns={

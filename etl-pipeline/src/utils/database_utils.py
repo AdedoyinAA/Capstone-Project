@@ -21,6 +21,31 @@ logger = setup_logger(__name__, "database.log", level=logging.DEBUG)
 
 
 def create_db_engine(connection_params):
+    """
+    Creates a SQLAlchemy database engine for connecting to a PostgreSQL
+    database.
+
+    Args:
+        connection_params (dict): Dictionary containing connection parameters.
+        Expected keys are:
+            - dbname (str): Database name.
+            - user (str): Username.
+            - password (str): Password.
+            - host (str): Host address.
+            - port (str or int): Port number.
+
+    Raises:
+        ValueError: If a required connection parameter (except password) is
+        missing.
+        DatabaseConnectionError: If connection parameters are invalid.
+        DatabaseConnectionError: If the database driver is missing or
+        incorrect.
+        DatabaseConnectionError: If the database engine cannot be created.
+
+    Returns:
+        engine: A SQLAlchemy Engine instance for the
+        database.
+    """
     try:
         for param in ["dbname", "user", "password", "host", "port"]:
             if not param == "password" and not connection_params.get(param):
@@ -48,6 +73,30 @@ def create_db_engine(connection_params):
 
 
 def get_db_connection(connection_params):
+    """
+    Establishes a database connection using SQLAlchemy.
+
+    Args:
+        connection_params (dict): Dictionary containing database connection
+        parameters.
+        Expected keys are:
+            - dbname (str): Database name.
+            - user (str): Username.
+            - password (str): Password.
+            - host (str): Host address.
+            - port (str or int): Port number.
+
+    Raises:
+        DatabaseConnectionError: If an operational error occurs while
+        connecting to the database.
+        DatabaseConnectionError: If a SQLAlchemy-related error prevents
+        the connection.
+        Exception: For any other unexpected errors.
+
+    Returns:
+        connection: An active database connection
+        object.
+    """
     try:
         engine = create_db_engine(connection_params)
         connection = engine.connect()

@@ -28,6 +28,27 @@ COLUMNS_TO_DROP = [
 
 
 def get_player_stats(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    Calculate per-year player statistics from boxscore data.
+
+    Args:
+        data (pd.DataFrame): DataFrame containing boxscore statistics
+        with columns including:
+            'player_name', 'year', 'points', 'assists', 'total_rebounds',
+            'field_goals_percentage', 'three_point_percentage',
+            'free_throws_percentage', and 'three_pointers'.
+
+    Returns:
+        pd.DataFrame: DataFrame with aggregated player statistics per year,
+        including:
+        - points_per_game
+        - assists_per_game
+        - rebounds_per_game
+        - field_goal_pct_per_game
+        - three_point_pct_per_game
+        - free_throws_pct_per_game
+        - total_three_pointers
+    """
     player_stats_df = (
         data.groupby(["player_name", "year"])
         .agg({
@@ -64,15 +85,41 @@ def get_player_stats(data: pd.DataFrame) -> pd.DataFrame:
 
 
 def determine_winner(row):
+    """
+    Determine if the team in the row won the game.
+
+    Args:
+        row (pd.Series): A row from the boxscore DataFrame containing
+        'team_name', 'home_team', 'away_team',
+        'points_home', 'points_away'.
+
+    Returns:
+        int or None: 1 if the team won, 0 if the team lost,
+        None if team not found.
+    """
     if row["team_name"] == row["home_team"]:
+        # Home team wins if points_home > points_away
         return int(row["points_home"] > row["points_away"])
     elif row["team_name"] == row["away_team"]:
+        # Away team wins if points_away > points_home
         return int(row["points_away"] > row["points_home"])
     else:
+        # Team not found in this game
         return None
 
 
 def add_won_game_column(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    Add a column indicating whether the team won the game.
+
+    Args:
+        data (pd.DataFrame): DataFrame containing 'team_name', 'home_team',
+                             'away_team', 'points_home', 'points_away'.
+
+    Returns:
+        pd.DataFrame: DataFrame with an added 'won_game' column
+        (1 = win, 0 = loss).
+    """
     # Column to represent game wins
     data["won_game"] = data.apply(determine_winner, axis=1)
 
@@ -80,7 +127,16 @@ def add_won_game_column(data: pd.DataFrame) -> pd.DataFrame:
 
 
 def remove_unnecessary_columns(data: pd.DataFrame) -> pd.DataFrame:
-    # Drop unnecessary columns
+    """
+    Remove unnecessary columns from the DataFrame.
+
+    Args:
+        data (pd.DataFrame): Input DataFrame.
+        COLUMNS_TO_DROP (list): List of column names to remove.
+
+    Returns:
+        pd.DataFrame: DataFrame with specified columns removed.
+    """
     data.drop(
         columns=COLUMNS_TO_DROP,
         inplace=True
@@ -90,6 +146,15 @@ def remove_unnecessary_columns(data: pd.DataFrame) -> pd.DataFrame:
 
 
 def remove_duplicates(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    Remove duplicate rows from the DataFrame.
+
+    Args:
+        data (pd.DataFrame): Input DataFrame.
+
+    Returns:
+        pd.DataFrame: DataFrame with duplicate rows removed.
+    """
     # Drop duplicates
     team_wins_df = data.drop_duplicates()
 
@@ -97,6 +162,16 @@ def remove_duplicates(data: pd.DataFrame) -> pd.DataFrame:
 
 
 def get_total_number_of_wins(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    Calculate the total number of wins per team per year.
+
+    Args:
+        data (pd.DataFrame): DataFrame containing team game
+        results with a 'won_game' column.
+
+    Returns:
+        pd.DataFrame: DataFrame with the total number of wins
+    """
     # Count total number of wins a team has
     total_wins_df = (
         data.groupby(["year", "team_name"])["won_game"]
@@ -111,6 +186,16 @@ def get_total_number_of_wins(data: pd.DataFrame) -> pd.DataFrame:
 
 
 def get_total_number_of_games_played(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    Calculate the total number of games played per team per year.
+
+    Args:
+        data (pd.DataFrame): DataFrame containing team game results
+        with a 'won_game' column.
+
+    Returns:
+        pd.DataFrame: DataFrame with the total games played.
+    """
     # Count total number of games a team played every year
     games_played_df = (
         data.groupby(["year", "team_name"])["won_game"]
@@ -125,6 +210,16 @@ def get_total_number_of_games_played(data: pd.DataFrame) -> pd.DataFrame:
 
 
 def get_team_stats(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    A DataFrame which contains all the stats relating to a team
+    per year.
+
+    Args:
+        data (pd.DataFrame): Input DataFrame.
+
+    Returns:
+        pd.DataFrame: DataFrame containing team statistics.
+    """
     # Column to represent game wins
     data = add_won_game_column(data)
 

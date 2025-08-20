@@ -21,7 +21,7 @@ def load_kaggle_config() -> Dict[str, Dict[str, str]]:
     so for the dev environment:
         run_etl dev
     Other environments are test and prod
-    :return: Dictionaty containing kaggle connection parameters.
+    :return: Dictionary containing kaggle connection parameters.
     """
 
     config = {

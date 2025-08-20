@@ -20,7 +20,17 @@ TABLE_NAME = "aa_player_stats"
 
 
 def create_player_stats(player_stats: pd.DataFrame) -> None:
-    # Function to load player_stats into pagila database
+    """
+    Loads player statistics into the target database.
+
+    Args:
+        player_stats (pd.DataFrame): DataFrame containing
+        aggregated player statistics.
+
+    Raises:
+        QueryExecutionError: If there is an error connecting to the database,
+        executing the SQL query, or with database configuration.
+"""
     if player_stats.empty:
         logger.warning("No data to load, DataFrame is empty.")
         return

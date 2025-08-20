@@ -15,12 +15,25 @@ EXPECTED_PERFORMANCE = 1
 
 
 def extract_games() -> pd.DataFrame:
+    """
+    Extracts games data from downloaded CSV and stores
+    in a DataFrame
+
+    Raises:
+        Exception: Handles any exception that are raised
+        during runtime
+
+    Returns:
+        pd.DataFrame: DataFrame containing games data
+    """
     # Performance analysis
     start_time = timeit.default_timer()
-
     try:
+        # Read the downloaded CSV file
         games = pd.read_csv(FILE_PATH)
         extract_games_execution_time = timeit.default_timer() - start_time
+
+        # Logging
         log_extract_success(
             logger,
             TYPE,

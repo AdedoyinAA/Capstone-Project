@@ -11,6 +11,19 @@ def merge_boxscores_games(
     boxscores: pd.DataFrame,
     games: pd.DataFrame
 ) -> pd.DataFrame:
+    """
+    Merge the boxscores DataFrame with the games DataFrame on 'game_id'.
+
+    Args:
+        boxscores (pd.DataFrame): DataFrame containing player boxscore
+        statistics, must include 'game_id'.
+        games (pd.DataFrame): DataFrame containing game-level
+        information, must include 'game_id'.
+
+    Returns:
+        pd.DataFrame: Merged DataFrame containing
+        both player statistics and game information.
+    """
     boxscores_and_games_df = pd.merge(
         boxscores,
         games,

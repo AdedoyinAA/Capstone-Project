@@ -21,8 +21,13 @@ EXPECTED_PERFORMANCE = 1
 
 
 def extract_csvs():
+    """
+    Check for Kaggle API key, downloads the CSV files from Kaggle
+    and stores in data/raw
+    """
     try:
         check_kaggle_credentials()
+        # Dataset on kaggle
         dataset = "patrickhallila1994/nba-data-from-basketball-reference"
         save_path = "data/raw"
         download_nba_dataset_from_kaggle(dataset, destination=save_path)
@@ -33,13 +38,26 @@ def extract_csvs():
 
 
 def extract_boxscores() -> pd.DataFrame:
+    """
+    Extracts box scores data from downloaded CSV and stores
+    in a DataFrame
+
+    Raises:
+        Exception: Handles any exception that are raised
+        during runtime
+
+    Returns:
+        pd.DataFrame: DataFrame containing box scores data
+    """
     extract_csvs()
     # Performance analysis
     start_time = timeit.default_timer()
-
     try:
+        # Read the downloaded CSV file
         box_scores = pd.read_csv(FILE_PATH)
         extract_boxscores_execution_time = timeit.default_timer() - start_time
+
+        # Logging
         log_extract_success(
             logger,
             TYPE,

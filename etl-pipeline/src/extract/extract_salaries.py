@@ -15,12 +15,26 @@ EXPECTED_PERFORMANCE = 1
 
 
 def extract_salaries() -> pd.DataFrame:
+    """
+    Extracts salaries data from downloaded CSV and stores
+    in a DataFrame
+
+    Raises:
+        Exception: Handles any exception that are raised
+        during runtime
+
+    Returns:
+        pd.DataFrame: DataFrame containing salaries data
+    """
     # Performance analysis
     start_time = timeit.default_timer()
 
     try:
+        # Read the downloaded CSV file
         salaries = pd.read_csv(FILE_PATH)
         extract_salaries_execution_time = timeit.default_timer() - start_time
+
+        # Logging
         log_extract_success(
             logger,
             TYPE,

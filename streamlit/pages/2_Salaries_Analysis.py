@@ -4,6 +4,7 @@ import plotly.express as px
 from utils.load_sql_query_utils import load_table
 
 FILE_NAME = "player_info_and_salaries.sql"
+# Set the page title and layout size
 st.set_page_config(
     page_title="Salaries Analysis",
     layout="wide"
@@ -33,6 +34,7 @@ player_recent_salaries_df = player_salaries_df.drop_duplicates(
     keep="last"
 )
 
+# Remove the commas from the salary string then convert to int
 player_recent_salaries_df.loc[:, "inflation_adjusted_salary"] = \
     player_recent_salaries_df["inflation_adjusted_salary"].apply(
         lambda x: int(str(x).replace(",", ""))
@@ -113,5 +115,8 @@ else:
         markers=True,
         title=f"Average Salary by {selected_metric_to_display}"
     )
+
+# Change font size and colour of title
 fig.update_layout(title_font=dict(size=22, color='#60b4ff'))
+# Plot the graph
 st.plotly_chart(fig, use_container_width=True)

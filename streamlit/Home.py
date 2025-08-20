@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 
 
 FILE_NAME = "team_stats.sql"
+# Set the page title and layout size
 st.set_page_config(
     page_title="HoopMetrics",
     layout="wide",
@@ -19,6 +20,7 @@ st.set_page_config(
 base_dir = Path(__file__).parent
 image_path = base_dir / "images" / "nba_logo.avif"
 
+# NBA Logo
 column_1, column_2, column_3 = st.columns([1, 2, 1])
 with column_2:
     st.image(str(image_path))

@@ -10,9 +10,15 @@ logger = setup_logger("extract_data", "extract_data.log")
 
 
 def extract_data():
+    """
+    Function which executes the extraction process
+
+    Returns:
+        Tuple: A tuple containing all the extracted DataFrames
+    """
     try:
         logger.info("Starting data extraction process")
-
+        # Extract the box scores data
         box_scores = extract_boxscores()
         games = extract_games()
         player_info = extract_playerinfo()

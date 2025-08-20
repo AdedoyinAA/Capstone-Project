@@ -4,6 +4,7 @@ from utils.load_sql_query_utils import load_table
 
 
 FILE_NAME = "player_info_and_salaries.sql"
+# Set the page title and layout size
 st.set_page_config(
     page_title="Player Comparison",
     layout="wide",
@@ -22,7 +23,6 @@ engine = create_engine(
     f"{db_config['SOURCE_DB_HOST']}:"
     f"{db_config['SOURCE_DB_PORT']}/{db_config['SOURCE_DB_NAME']}"
 )
-
 
 player_info_df = load_table(FILE_NAME, engine)
 
@@ -76,13 +76,13 @@ with column_1:
         label=":blue[Weight (kg)]",
         value=f"{player_1_info['weight_kg']}",
         border=True,
-        help="Player's height in metres"
+        help="Player's weight in kilograms"
     )
     st.metric(
         label=":blue[Position(s)]",
         value=f"{player_1_info['position']}",
         border=True,
-        help="Player's weight in kilograms"
+        help="Player's position"
     )
     st.metric(
         label=":blue[Date of Birth]",
@@ -96,7 +96,6 @@ with column_1:
         border=True,
         help="Player's salary per year"
     )
-
 with column_2:
     st.markdown(
         "<h3 style='font-size:32px; color:#ff4b4b;'>"
@@ -113,13 +112,13 @@ with column_2:
         label=":red[Weight (kg)]",
         value=f"{player_2_info['weight_kg']}",
         border=True,
-        help="Player's height in metres"
+        help="Player's weight in kilograms"
     )
     st.metric(
         label=":red[Position(s)]",
         value=f"{player_2_info['position']}",
         border=True,
-        help="Player's weight in kilograms"
+        help="Player's position"
     )
     st.metric(
         label=":red[Date of Birth]",

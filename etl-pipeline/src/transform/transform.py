@@ -16,6 +16,16 @@ logger = setup_logger("transform_data", "transform_data.log")
 
 
 def transform_data(data) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Function which executes the transformation process.
+
+    Args:
+        data: The tuple containing the extracted data gotten
+        after executing extract_data()
+
+    Returns:
+        Tuple: A tuple containing all the transformed DataFrames
+    """
     try:
         logger.info("Starting data transformation process...")
         # Clean box scores data

@@ -22,7 +22,18 @@ TABLE_NAME = "aa_player_info_and_salaries"
 def create_player_info_and_salaries(
     player_info_and_salaries: pd.DataFrame
 ) -> None:
-    # Function to load player info and salaries into pagila database
+    """
+    Loads the player information and salaries DataFrame into the target
+    database.
+
+    Args:
+        player_info_and_salaries (pd.DataFrame): DataFrame containing
+        player info and salary data.
+
+    Raises:
+        QueryExecutionError: If there is an error connecting to the database,
+        executing the SQL query, or with database configuration.
+    """
     if player_info_and_salaries.empty:
         logger.warning("No data to load, DataFrame is empty.")
         return

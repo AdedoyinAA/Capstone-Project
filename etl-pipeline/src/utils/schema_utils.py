@@ -8,7 +8,20 @@ logger = setup_logger("schema", "schema.log")
 
 
 def set_schema():
-    # Determine which env file to load
+    """
+    Determines the database schema to use based on the runtime environment.
+
+    It loads the appropriate `.env` file depending on the mode provided
+    as a command-line argument (`prod`, `dev`, or `test`).
+    Defaults to `prod` if no argument is provided.
+
+    - `prod` → loads `.env` and uses schema `"de_2506_a"`
+    - `dev`  → loads `.env.dev` and uses schema `"de_2506_a"`
+    - `test` → loads `.env.test` and uses schema `"public"`
+
+    Returns:
+        schema (str): The schema name to be used for database operations.
+    """
     mode = sys.argv[1] if len(sys.argv) > 1 else "prod"
 
     # Map mode to correct .env file

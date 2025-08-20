@@ -11,6 +11,20 @@ def merge_playerinfo_salaries(
     playerinfo: pd.DataFrame,
     salaries: pd.DataFrame
 ) -> pd.DataFrame:
+    """
+    Merge the player information DataFrame with the salaries
+    DataFrame on 'player_name'.
+
+    Args:
+        playerinfo (pd.DataFrame): DataFrame containing player details
+        such as height, weight, position, and birth date.
+        salaries (pd.DataFrame): DataFrame containing player salaries
+        and season information, must include 'player_name'.
+
+    Returns:
+        pd.DataFrame: Merged DataFrame containing player information
+        along with salary data for each season.
+    """
     player_info_and_salaries_df = pd.merge(
         playerinfo,
         salaries,

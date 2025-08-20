@@ -7,21 +7,32 @@ This repository contains an end-to-end definition of my Capstone Project which i
 ├── etl-pipeline
 │   ├── config
 │   ├── data
-│   │   ├── processed               # Cleaned CSVs 
-│   │   └── raw                     # Unprocessed CSVs downloaded from Kaggle 
-│   ├── notebooks                   # Used for EDA    
-│   ├── requirements.txt            # Dependencies to set up virtual environment
-│   ├── scripts                     # Contains script that runs ETL pipeline
-│   ├── src
-│   │   ├── extract                 # Downloads and extracts the CSV data from kaggle
-│   │   ├── load                    # Loads the data into the Pagila SQL database
-│   │   ├── logs                    # Handles logging for the project
-│   │   ├── sql                     # SQL scripts for loading
-│   │   ├── transform               # Cleaning and enriching the dataset
-│   │   └── utils   
-│   └── tests                       # Testing ETL pipeline
-├── README.md
+│   │   ├── processed               # Cleaned CSVs
+│   │   └── raw                     # Unprocessed CSVs downloaded from Kaggle
+│   ├── images                      # Images
+│   ├── notebooks                   # Used for EDA
+│   ├── README.md                   # Documentation for the ETL pipeline
+│   ├── requirements-setup.txt      # Dependencies to set up the Python project
+│   ├── requirements.txt            # Dependencies to set up virtual environment for ETL pipeline
+│   ├── scripts                     # Contains the script that runs the ETL pipeline
+│   ├── src                         
+│   │   ├── extract                 # Contains scripts for downloading and extracting the CSV data
+│   │   ├── load                    # Contains scripts for loading the enriched data into Pagila
+│   │   ├── logs                    # Handles logging
+│   │   ├── transform               # Contains scripts for transforming the extracted dataset
+│   │   └── utils                   # Reusable helper functions
+│   └── tests
+│       ├── test_data               # Cleaned data for testing
+│       └── unit_tests              # Unit Tests
+├── README.md                       # Documentation for entire project
 └── streamlit
+    ├── Home.py                     # Main page for the Streamlit application
+    ├── images                      # Images
+    ├── pages                       # Additional pages for the Streamlit application
+    ├── README.md                   # Documentation for the Streamlit application
+    ├── requirements.txt            # Dependencies to set up virtual environment for the Streamlit application
+    ├── sql                         # SQL scripts for querying Pagila 
+    └── utils                       # Reusable helper functions
 </pre>
 ## Project Requirements
 A robust ETL pipeline which integrates NBA games and players information from CSV files on [Kaggle](https://www.kaggle.com/datasets/patrickhallila1994/nba-data-from-basketball-reference?select=salaries.csv). The pipeline cleans and standardises the data, removes any invalid or missing entries and retains data only between **2016** and **2021**. Also, the pipeline enriches the dataset by calculating the average points scored by each player per year and a variety of other stats(rebounds per game, assists per game, etc). This is so the user can analyse how a player or team's statistics changed per season. The final cleaned and enriched dataset is stored in the **Pagila SQL Database** for analysis. A Streamlit application is also designed which contains key insights and visualisations e.g. *Which team won the most games in a season? Does the height of a player and their position affect their salary? Who scored the most three-pointers?* etc. 

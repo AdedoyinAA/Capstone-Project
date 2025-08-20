@@ -15,12 +15,26 @@ EXPECTED_PERFORMANCE = 1
 
 
 def extract_playerinfo() -> pd.DataFrame:
+    """
+    Extracts player information data from downloaded CSV and stores
+    in a DataFrame
+
+    Raises:
+        Exception: Handles any exception that are raised
+        during runtime
+
+    Returns:
+        pd.DataFrame: DataFrame containing player information data
+    """
     # Performance analysis
     start_time = timeit.default_timer()
 
     try:
+        # Read the downloaded CSV file
         player_info = pd.read_csv(FILE_PATH)
         extract_playerinfo_execution_time = timeit.default_timer() - start_time
+
+        # Logging
         log_extract_success(
             logger,
             TYPE,

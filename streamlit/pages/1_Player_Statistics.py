@@ -6,6 +6,7 @@ import plotly.express as px
 
 
 FILE_NAME = "player_stats.sql"
+# Set the page title and layout size
 st.set_page_config(
     page_title="Player Stats",
     layout="wide",
@@ -13,7 +14,6 @@ st.set_page_config(
 )
 
 st.title(":blue[Player Statistics] ⛹️")
-
 
 # Load database credentials from secrets.toml
 db_config = st.secrets["database"]
@@ -24,7 +24,6 @@ engine = create_engine(
     f"{db_config['SOURCE_DB_HOST']}:"
     f"{db_config['SOURCE_DB_PORT']}/{db_config['SOURCE_DB_NAME']}"
 )
-
 
 player_stats_df = load_table(FILE_NAME, engine)
 
@@ -115,27 +114,27 @@ with column_1:
         label=":blue[Assists per Game (apg)]",
         value=filtered_player_stats_df["assists_per_game"],
         border=True,
-        help="Average assists per game based in the year"
+        help="Average assists per game in the year"
     )
 with column_2:
     st.metric(
         label=":blue[Field Goals Percentage per Game (%)]",
         value=filtered_player_stats_df["field_goal_pct_per_game"],
         border=True,
-        help="Field goals percentage per game in the year"
+        help="Field goal percentage per game in the year"
     )
     st.metric(
-        label=":blue[Three Pointers Percentage per Game (%)]",
+        label=":blue[Three Pointer Percentage per Game (%)]",
         value=filtered_player_stats_df["three_point_pct_per_game"],
         border=True,
-        help="Three pointers percentage per game"
-        " based on the season start year"
+        help="Three pointer percentage per game"
+        " in the year"
     )
     st.metric(
-        label=":blue[Free Throws Percentage per Game (%)]",
+        label=":blue[Free Throw Percentage per Game (%)]",
         value=filtered_player_stats_df["free_throws_pct_per_game"],
         border=True,
-        help="Free throws percentage per game in the year"
+        help="Free throw percentage per game in the year"
     )
 
 st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
@@ -245,5 +244,5 @@ bar_chart_2 = px.bar(
 
 # Update the title color and size
 bar_chart_2.update_layout(title_font=dict(size=22, color='#60b4ff'))
-
+# Plot the bar chart
 st.plotly_chart(bar_chart_2, use_container_width=True)

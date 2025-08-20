@@ -7,6 +7,20 @@ logger = setup_logger("load_data", "load_data.log")
 
 
 def log_table_action(connection: Connection, table_name: str) -> bool:
+    """
+    Check if a table exists in the connected database and log the action.
+    Executes a query against `information_schema.tables` to determine if
+    the specified table already exists in the database.
+    Logs whether the table will be replaced (if it exists) or created
+    (if it does not exist).
+
+    Args:
+        connection (Connection): Active SQLAlchemy database connection.
+        table_name (str): The name of the table to check.
+
+    Returns:
+        table_exists (bool): True if the table exists, False otherwise.
+    """
     # Checks if the table exists or not
     result = connection.execute(
         text(

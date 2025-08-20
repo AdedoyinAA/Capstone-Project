@@ -34,9 +34,9 @@ def sample_boxscores():
         "DRB": [2, 3],
         "STL": [0, 1],
         "BLK": [0, 1],
-        "TOV": [2, 3],
-        "PF": [3, 2],
-        "+/-": [5, -3]
+        "TOV": [0, 3],
+        "PF": [0, 2],
+        "+/-": [0, -3]
     }
     return pd.DataFrame(data)
 
@@ -48,12 +48,36 @@ def test_remove_unnecessary_columns(sample_boxscores):
 
 
 def test_check_player_conditions(sample_boxscores):
-    df = check_player_conditions(sample_boxscores.copy())
-    # Row 0 (Did Not Play) should have numeric columns set to 0
-    assert df.loc[0, "FG"] == 0
-    assert df.loc[0, "PTS"] == 0
-    # Row 1 should remain unchanged
-    assert df.loc[1, "FG"] == "10"
+    expected_data = {
+        "teamName": ["BOS"],
+        "playerName": ["Jayson Tatum"],
+        "MP": ["35:00"],
+        "FG": ["10"],
+        "FGA": ["15"],
+        "3P": ["3"],
+        "3PA": ["6"],
+        "FT": ["4"],
+        "FTA": ["5"],
+        "TRB": ["8"],
+        "AST": ["6"],
+        "PTS": ["27"],
+        "isStarter": ["1"],
+        "ORB": [2],
+        "DRB": [3],
+        "STL": [1],
+        "BLK": [1],
+        "TOV": [3],
+        "PF": [2],
+        "+/-": [-3]
+    }
+    expected_df = pd.DataFrame(expected_data).reset_index(drop=True)
+
+    df = check_player_conditions(
+        sample_boxscores.copy()
+    ).reset_index(drop=True)
+
+    # Check that they are equal
+    pd.testing.assert_frame_equal(df, expected_df)
 
 
 def test_convert_to_numeric(sample_boxscores):

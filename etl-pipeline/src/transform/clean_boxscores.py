@@ -49,22 +49,9 @@ def check_player_conditions(boxscores: pd.DataFrame) -> pd.DataFrame:
         "Did Not Dress"
     ]
 
-    # Find rows where minutes_played == "Did Not Play" or "Player Suspended"
-    mask = boxscores["MP"].isin(conditions)
+    # Keep only rows where players played a game
+    boxscores = boxscores.loc[~boxscores["MP"].isin(conditions)].copy()
 
-    # Replace the values with 0 where the mask returns True
-    columns_to_replace = [
-        "FG",
-        "FGA",
-        "3P",
-        "3PA",
-        "FT",
-        "FTA",
-        "TRB",
-        "AST",
-        "PTS"
-    ]
-    boxscores.loc[mask, columns_to_replace] = 0
     return boxscores
 
 

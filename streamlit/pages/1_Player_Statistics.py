@@ -81,7 +81,7 @@ selected_player = st.selectbox(
     label="Select a Player:",
     options=sorted(players_for_year),
     help=("Choose a player"),
-    index=823  # Default is Stephen Curry
+    index=813  # Default is Stephen Curry
 )
 
 st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)

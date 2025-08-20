@@ -19,7 +19,7 @@ st.write(
 db_config = st.secrets["database"]
 
 engine = create_engine(
-    f"postgresql+psycopg://{db_config['SOURCE_DB_USER']}:"
+    f"postgresql+psycopg2://{db_config['SOURCE_DB_USER']}:"
     f"{db_config['SOURCE_DB_PASSWORD']}@"
     f"{db_config['SOURCE_DB_HOST']}:"
     f"{db_config['SOURCE_DB_PORT']}/{db_config['SOURCE_DB_NAME']}"

@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from pathlib import Path
 from sqlalchemy import create_engine
 from utils.load_sql_query_utils import load_table
 import plotly.express as px
@@ -14,10 +15,13 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
+# Get the absolute path to the image relative to this file
+base_dir = Path(__file__).parent
+image_path = base_dir / "images" / "nba_logo.avif"
 
 column_1, column_2, column_3 = st.columns([1, 2, 1])
 with column_2:
-    st.image("./images/nba_logo.avif")
+    st.image(str(image_path))
 
 st.markdown(
     "<h1 style='text-align: center; color: #60b4ff;'>HoopMetrics! 🏀</h1>",

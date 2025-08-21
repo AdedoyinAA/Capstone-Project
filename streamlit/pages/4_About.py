@@ -44,7 +44,7 @@ The dataset underwent a full **ETL (Extract, Transform, Load) pipeline**:
     - Filtering out only regular season games for analysis.
     - Removing special characters and trimming whitespaces from all entries.
     - Appropriate data type conversion e.g: `object` to `datetime`.
-    - Handling missing values and ensuring consistent data types.
+    - Handling missing and duplicated values.
     - Renaming columns for better understanding.
     - Dropping unnecessary columns not needed for analysis (e.g.
     offensive and defensive rebounds, +/-, turnover stats, etc.).
@@ -75,9 +75,9 @@ st.markdown("""
 - Salary distributions vary widely across positions, with all positions
     showing significant outliers.
 - Percentile analysis (P95, P99) reveals the impact of top-performing players
-    on average salaries.
-- Multi-position players were handled thoughtfully to maintain clarity in
-    analysis.
+    on salaries.
+- Golden State Warriors had the highest win percentage in a calendar year in
+2016.
 
 ---
 ## <span style="color:#60b4ff">Challenges & Future Directions</span>

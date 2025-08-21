@@ -4,7 +4,7 @@ from utils.sql_utils import load_sql_query
 
 
 # Cache the function so it doesn't rerun every time the streamlit app reloads
-@st.cache_data
+@st.cache_data(show_spinner=False)
 def load_table(filename, _engine):
     """
     Load a SQL query from a file and execute it against a database engine.

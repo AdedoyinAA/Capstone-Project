@@ -40,15 +40,21 @@ The dataset underwent a full **ETL (Extract, Transform, Load) pipeline**:
 - **Extraction:** Raw player and team statistics were downloaded and extracted
     from Kaggle.
 - **Transformation:** Data cleaning included:
-  - Removing special characters and trimming whitespaces from all entries.
-  - Appropriate data type conversion e.g: `object` to `datetime`.
-  - Handling missing values and ensuring consistent data types.
-  - Renaming columns for better understanding.
-  - Parsing multi-position players and selecting primary positions for
+    - Filter out games and dates between 2016 and 2021.
+    - Filtering out only regular season games for analysis.
+    - Removing special characters and trimming whitespaces from all entries.
+    - Appropriate data type conversion e.g: `object` to `datetime`.
+    - Handling missing values and ensuring consistent data types.
+    - Renaming columns for better understanding.
+    - Dropping unnecessary columns not needed for analysis.
+    - Removing entries were a player was absent from a game.
+    - Parsing multi-position players and selecting primary positions for
     analysis.
-  - Aggregating statistics to calculate points per game per calendar year, etc.
-  - Aggregating player statistics to calculate summary metrics such as median,
-  P95, and P99 salaries.
+    - Aggregating statistics to calculate points per game, assists per game
+    etc.
+    - Aggregating player statistics to calculate summary metrics such
+    as median,
+    P95, and P99 salaries.
 - **Loading:** Cleaned and enriched data was loaded into a PostgreSQL database
     (Pagila) for persistence and efficient querying.
 - **Testing:** A total of **107** unit tests were written to assess the
@@ -64,7 +70,7 @@ st.markdown("""
 ---
 
 ## <span style="color:#60b4ff">Key Insights & Takeaways</span>
-
+- Last NBA games data recorded was on the **11th of November, 2020**.
 - Salary distributions vary widely across positions, with all positions
     showing significant outliers.
 - Percentile analysis (P95, P99) reveals the impact of top-performing players
@@ -73,5 +79,24 @@ st.markdown("""
     analysis.
 
 ---
+## <span style="color:#60b4ff">Challenges & Future Directions</span>
+- **Challenges:**
+    - Cleaning messy, multi-format data and handling players with
+    multiple positions required careful decisions.
+    - Tests written for certain transform/merge functions kept overwriting
+    actual saved data, leading to them being omitted from the pytest code
+    coverage.
+- **Future Work:**
+    - Integrate more player metrics (e.g., advanced performance stats) for
+    deeper insights.
+    - Incorporate predictive analytics to forecast salaries based on
+    performance trends.
+    - Analyse data based on season performance, playoff stats, etc.
+    - Integration tests and component tests for pipeline.
+
+This project and Streamlit application demonstrates the full
+**data lifecycle**, from raw extraction to actionable insights,
+providing a foundation for further exploration and
+analytics.
 
 """, unsafe_allow_html=True)

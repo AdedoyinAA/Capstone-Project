@@ -282,3 +282,44 @@ GitHub Projects was used to create Kanban boards for each user story.
 ---
 
 **N.B**: To see information about both the pipeline and the streamlit application specifically, reference their respective `README.md` files in the `etl-pipeline` and `streamlit` directories.
+
+---
+
+## Scalability, Security & Deployment Considerations
+### Query Execution & Performance Optimisation
+As the dataset grows, optimising query execution becomes increasingly important.
+- **Database indexing**: Creating indexes on frequently queried columns (e.g., `player_name`, `year`) to speed up lookups.
+- **Query optimisation**: Using `EXPLAIN` in PostgreSQL to identify bottlenecks, rewriting subqueries as joins, and minimising unnecessary aggregations.
+- **ETL performance**: Parallelising data ingestion using multiprocessing and leveraging bulk insert operations.
+
+### Error Handling & Logging
+Throughout the pipeline, I added structured error handling and logging to ensure visibility into failures:
+- **Error handling**:
+    - Raised `FileNotFoundError` when SQL files were missing.
+    - Raised `QueryExecutionError` for database execution issues.
+    - Used Streamlit `st.error()` for user-facing errors.
+- **Logging**:
+    - Implemented `logger.info()` for tracking ETL steps (e.g., table creation/replacement).
+    - Logged warnings for suspicious data (e.g., missing values, invalid formats).
+    - Logged errors for debugging.
+This logging can be integrated with monitoring tools (e.g., CloudWatch, ELK stack) in production for better observability.
+
+### Security & Privacy Considerations
+- **Application security**:
+    - Streamlit app can be protected with authentication (e.g., AWS Cognito, OAuth).
+  
+### Deployment & Cloud Automation (AWS)
+This project could be scaled and automated in AWS:
+- **Data storage**:
+    - Store raw data in **S3**.
+    - Use **AWS Glue** for ETL orchestration and schema discovery.
+- **Database**:
+    - Load processed data into **Amazon RDS (PostgreSQL)** or **Redshift** for analytics at scale.
+- **Compute**:
+    - Deploy the ETL pipeline on **AWS Lambda** (event-driven) or **ECS/EKS** (containerised).
+- **Visualisation**:
+    - Deploy the Streamlit app on **EC2** or as a container in **ECS/EKS** with a load balancer.
+    - Alternatively, migrate dashboards to Amazon QuickSight for enterprise-ready BI.
+- **Automation**:
+    - Use **Step Functions** or **Airflow** on **MWAA** to orchestrate the pipeline end-to-end.
+    - Schedule ETL runs using **EventBridge** (**CloudWatch Events**).

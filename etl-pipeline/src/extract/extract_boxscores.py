@@ -49,7 +49,7 @@ def extract_boxscores() -> pd.DataFrame:
     Returns:
         pd.DataFrame: DataFrame containing box scores data
     """
-    extract_csvs()
+    # extract_csvs() This is commented out for testing purposes.
     # Performance analysis
     start_time = timeit.default_timer()
     try:

@@ -106,7 +106,7 @@ metric_options = {
 }
 
 selected_metric_to_display = st.selectbox(
-    "Select Metric to Compare:",
+    "Select :blue[Metric] to Compare:",
     list(metric_options.keys())
 )
 

@@ -54,7 +54,7 @@ st.markdown(
 
 # Add dropdown for year selection
 selected_year = st.selectbox(
-    label="Select a Year:",
+    label="Select a :blue[Year]:",
     options=years,
     help="Choose a year (stats shown are for the calendar year not season)"
 )
@@ -66,7 +66,7 @@ teams_for_year = team_stats_df.loc[
 
 # Add dropdown for team selection
 selected_team = st.selectbox(
-    label="Select a Team:",
+    label="Select a :blue[Team]:",
     options=sorted(teams_for_year),
     help="Choose a team",
     index=9  # Default is Golden State Warriors :)

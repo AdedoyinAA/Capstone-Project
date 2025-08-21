@@ -59,190 +59,348 @@ player_stats_df_full[count_stats] = player_stats_df_full[count_stats].fillna(0)
 player_stats_df_full[percentage_stats] = \
     player_stats_df_full[percentage_stats].fillna(0)
 
+tab1, tab2, tab3, tab4 = st.tabs([
+    "Individual Player Stats",
+    "Player Comparison",
+    "Top 3-Point Shooters",
+    "Top Points per Game"
+])
 # Get the years
 years = sorted(player_stats_df_full["year"].unique())
 
-# Add a dropdown to select year
-selected_year = st.selectbox(
-    label="Select a Year:",
-    options=years,
-    help="Choose a year (stats shown are for the calendar year not season)"
-)
-
-# Filter players based on selected year
-players_for_year = player_stats_df_full.loc[
-    player_stats_df_full["year"] == selected_year, "player_name"
-].unique()
-
-# Add a dropdown to select player
-
-selected_player = st.selectbox(
-    label="Select a Player:",
-    options=sorted(players_for_year),
-    help=("Choose a player"),
-    index=813  # Default is Stephen Curry
-)
-
-st.markdown("<div style='margin-top: 30px;'></div>", unsafe_allow_html=True)
-
-# Filter the final DataFrame
-filtered_player_stats_df = player_stats_df_full[
-    (player_stats_df_full["year"] == selected_year)
-    & (player_stats_df_full["player_name"] == selected_player)
-]
-
-# Filter to get only the player
-filtered_only_player = player_stats_df_full[
-    player_stats_df_full["player_name"] == selected_player]
-
-# Show player stats as metrics
-column_1, column_2 = st.columns(2)
-with column_1:
-    st.metric(
-        label=":blue[Points per Game (ppg)]",
-        value=filtered_player_stats_df["points_per_game"],
-        border=True,
-        help="Average points per game in the year"
-    )
-    st.metric(
-        label=":blue[Rebounds per Game (rpg)]",
-        value=filtered_player_stats_df["rebounds_per_game"],
-        border=True,
-        help="Average rebounds per game in the year"
-    )
-    st.metric(
-        label=":blue[Assists per Game (apg)]",
-        value=filtered_player_stats_df["assists_per_game"],
-        border=True,
-        help="Average assists per game in the year"
-    )
-with column_2:
-    st.metric(
-        label=":blue[Field Goals Percentage per Game (%)]",
-        value=filtered_player_stats_df["field_goal_pct_per_game"],
-        border=True,
-        help="Field goal percentage per game in the year"
-    )
-    st.metric(
-        label=":blue[Three Pointer Percentage per Game (%)]",
-        value=filtered_player_stats_df["three_point_pct_per_game"],
-        border=True,
-        help="Three pointer percentage per game"
-        " in the year"
-    )
-    st.metric(
-        label=":blue[Free Throw Percentage per Game (%)]",
-        value=filtered_player_stats_df["free_throws_pct_per_game"],
-        border=True,
-        help="Free throw percentage per game in the year"
+with tab1:
+    # Add a dropdown to select year
+    selected_year = st.selectbox(
+        label="Select a :blue[Year]:",
+        options=years,
+        help="Choose a year (stats shown are for the calendar year not season)"
     )
 
-st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
-st.markdown("---")
-st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
+    # Filter players based on selected year
+    players_for_year = player_stats_df_full.loc[
+        player_stats_df_full["year"] == selected_year, "player_name"
+    ].unique()
 
+    # Add a dropdown to select player
 
-# Mapping of column names to display names
-stat_options = {
-    "points_per_game": "Points per Game (ppg)",
-    "assists_per_game": "Assists per Game (apg)",
-    "rebounds_per_game": "Rebounds per Game (rpg)"
-}
-
-# Multi-select to choose which stats to show
-selected_stats = st.multiselect(
-    label="Select Stats to Plot:",
-    options=list(stat_options.values()),
-    default=list(stat_options.values()),
-    help="Choose which stats you want to plot"
-)
-
-# Convert back to column names for plotting
-selected_stats_columns = [
-    key for key, value in stat_options.items() if value in selected_stats
-]
-
-# Line graph to show how stats changed over the years
-if selected_stats:
-    line_chart = px.line(
-        filtered_only_player,
-        x="year",
-        y=selected_stats_columns,
-        markers=True,
-        title=f"{selected_player}'s Performance Over The Years",
-        labels={"year": "Year", "value": "Per Game Stats", "variable": "Stat"}
+    selected_player = st.selectbox(
+        label="Select a :blue[Player]:",
+        options=sorted(players_for_year),
+        help=("Choose a player"),
+        index=813  # Default is Stephen Curry
     )
-    # Fix the x-axis to show exact year values without offset
-    line_chart.update_xaxes(
-        tickmode='array',
-        tickvals=filtered_only_player['year'].unique(),
-        ticktext=filtered_only_player['year'].unique()
+
+    st.markdown(
+        "<div style='margin-top: 30px;'></div>",
+        unsafe_allow_html=True
     )
-    line_chart.update_layout(title_font=dict(size=22, color="#60b4ff"))
-    st.plotly_chart(line_chart, use_container_width=True)
-else:
-    st.error("Please select at least one stat to display.")
 
-# Top three point shooters across all years
-top_three_pointers_df = (
-    player_stats_df
-    .groupby("player_name", as_index=False)["total_three_pointers"]
-    .sum()
-    .sort_values(by="total_three_pointers", ascending=False)
-)
+    # Filter the final DataFrame
+    filtered_player_stats_df = player_stats_df_full[
+        (player_stats_df_full["year"] == selected_year)
+        & (player_stats_df_full["player_name"] == selected_player)
+    ]
 
-# Take the first 10 players
-top_three_pointers_df = top_three_pointers_df.head(10)
+    # Filter to get only the player
+    filtered_only_player = player_stats_df_full[
+        player_stats_df_full["player_name"] == selected_player]
 
-st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
-st.markdown("---")
-st.markdown("<div style='margin-top: 50px;'></div>", unsafe_allow_html=True)
+    # Show player stats as metrics
+    column_1, column_2 = st.columns(2)
+    with column_1:
+        st.metric(
+            label=":blue[Points per Game (ppg)]",
+            value=filtered_player_stats_df["points_per_game"],
+            border=True,
+            help="Average points per game in the year"
+        )
+        st.metric(
+            label=":blue[Rebounds per Game (rpg)]",
+            value=filtered_player_stats_df["rebounds_per_game"],
+            border=True,
+            help="Average rebounds per game in the year"
+        )
+        st.metric(
+            label=":blue[Assists per Game (apg)]",
+            value=filtered_player_stats_df["assists_per_game"],
+            border=True,
+            help="Average assists per game in the year"
+        )
+    with column_2:
+        st.metric(
+            label=":blue[Field Goals Percentage per Game (%)]",
+            value=filtered_player_stats_df["field_goal_pct_per_game"],
+            border=True,
+            help="Field goals percentage per game in the year"
+        )
+        st.metric(
+            label=":blue[Three Pointer Percentage per Game (%)]",
+            value=filtered_player_stats_df["three_point_pct_per_game"],
+            border=True,
+            help="Three pointer percentage per game"
+            " in the year"
+        )
+        st.metric(
+            label=":blue[Free Throw Percentage per Game (%)]",
+            value=filtered_player_stats_df["free_throws_pct_per_game"],
+            border=True,
+            help="Free throw percentage per game in the year"
+        )
 
-# Plot the bar chart
-bar_chart = px.bar(
-    top_three_pointers_df,
-    x="player_name",
-    y="total_three_pointers",
-    color="total_three_pointers",
-    color_continuous_scale="Blues",
-    title="Top 10 Players by Total Three-Pointers",
-    labels={
-        "player_name": "Player",
-        "total_three_pointers": "Total 3-Pointers"
+    st.markdown(
+        "<div style='margin-top: 50px;'></div>",
+        unsafe_allow_html=True
+    )
+    st.markdown("---")
+    st.markdown(
+        "<div style='margin-top: 50px;'></div>",
+        unsafe_allow_html=True
+    )
+
+    # Mapping of column names to display names
+    stat_options = {
+        "points_per_game": "Points per Game (ppg)",
+        "assists_per_game": "Assists per Game (apg)",
+        "rebounds_per_game": "Rebounds per Game (rpg)"
     }
-)
 
-# Update the title color and size
-bar_chart.update_layout(title_font=dict(size=22, color='#60b4ff'))
+    # Multi-select to choose which stats to show
+    selected_stats = st.multiselect(
+        label="Select Stats to Plot:",
+        options=list(stat_options.values()),
+        default=list(stat_options.values()),
+        help="Choose which stats you want to plot"
+    )
 
-st.plotly_chart(bar_chart, use_container_width=True)
+    # Convert back to column names for plotting
+    selected_stats_columns = [
+        key for key, value in stat_options.items() if value in selected_stats
+    ]
 
-# Most point scorers
-top_points_per_game_df = (
-    player_stats_df
-    .groupby("player_name", as_index=False)["points_per_game"]
-    .mean()
-    .sort_values(by="points_per_game", ascending=False)
-)
+    # Line graph to show how stats changed over the years
+    if selected_stats:
+        line_chart = px.line(
+            filtered_only_player,
+            x="year",
+            y=selected_stats_columns,
+            markers=True,
+            title=f"{selected_player}'s Performance Over The Years",
+            labels={
+                "year": "Year",
+                "value": "Per Game Stats",
+                "variable": "Stat"
+            }
+        )
+        # Fix the x-axis to show exact year values without offset
+        line_chart.update_xaxes(
+            tickmode='array',
+            tickvals=filtered_only_player['year'].unique(),
+            ticktext=filtered_only_player['year'].unique()
+        )
+        line_chart.update_layout(title_font=dict(size=22, color="#60b4ff"))
+        st.plotly_chart(line_chart, use_container_width=True)
+    else:
+        st.error("Please select at least one stat to display.")
+with tab2:
+    st.markdown(
+        "<h3 style='font-size:32px; color:#60b4ff;'>"
+        "Compare Two Players 🔍</h3>",
+        unsafe_allow_html=True
+    )
+    # Selection columns
+    sel_col1, sel_col2 = st.columns(2)
+    with sel_col1:
+        st.markdown("### :blue[Player 1 Selection]")
+        selected_year_1 = st.selectbox(
+            label="Select a :blue[Year] (Player 1):",
+            options=years,
+            help="Choose a year for Player 1"
+        )
 
-# Take the first 10
-top_points_per_game_df = top_points_per_game_df.head(10)
+        players_for_year_1 = player_stats_df_full.loc[
+            player_stats_df_full["year"] == selected_year_1, "player_name"
+        ].unique()
 
-# Plot the bar chart
-bar_chart_2 = px.bar(
-    top_points_per_game_df,
-    x="player_name",
-    y="points_per_game",
-    color="points_per_game",
-    color_continuous_scale="Blues",
-    title="Top 10 Players by Points per Game",
-    labels={
-        "player_name": "Player",
-        "points_per_game": "Points per Game (ppg)"
-    }
-)
+        selected_player_1 = st.selectbox(
+            label="Select :blue[Player 1]:",
+            options=sorted(players_for_year_1),
+            help="Choose Player 1",
+            index=813  # Default: Stephen Curry
+        )
 
-# Update the title color and size
-bar_chart_2.update_layout(title_font=dict(size=22, color='#60b4ff'))
-# Plot the bar chart
-st.plotly_chart(bar_chart_2, use_container_width=True)
+    with sel_col2:
+        st.markdown("### :red[Player 2 Selection]")
+        selected_year_2 = st.selectbox(
+            label="Select a :red[Year] (Player 2):",
+            options=years,
+            help="Choose a year for Player 2"
+        )
+
+        players_for_year_2 = player_stats_df_full.loc[
+            player_stats_df_full["year"] == selected_year_2, "player_name"
+        ].unique()
+
+        selected_player_2 = st.selectbox(
+            label="Select :red[Player 2]:",
+            options=sorted(players_for_year_2),
+            help="Choose Player 2",
+            index=568  # Default: LeBron James
+        )
+
+    # Filter stats for each player
+    player1_stats = player_stats_df_full[
+        (player_stats_df_full["year"] == selected_year_1)
+        & (player_stats_df_full["player_name"] == selected_player_1)
+    ]
+
+    player2_stats = player_stats_df_full[
+        (player_stats_df_full["year"] == selected_year_2)
+        & (player_stats_df_full["player_name"] == selected_player_2)
+    ]
+
+    st.markdown("<hr>", unsafe_allow_html=True)
+
+    # Side by side comparison
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.subheader(f":blue[{selected_player_1}] ({selected_year_1})")
+        st.metric(
+            label=":blue[Points per Game (ppg)]",
+            value=player1_stats["points_per_game"].values[0],
+            help="Average points per game in the year for Player 1",
+            border=True
+        )
+        st.metric(
+            label=":blue[Rebounds per Game (rpg)]",
+            value=player1_stats["rebounds_per_game"].values[0],
+            help="Average rebounds per game in the year for Player 1",
+            border=True
+        )
+        st.metric(
+            label=":blue[Assists per Game (apg)]",
+            value=player1_stats["assists_per_game"].values[0],
+            help="Average assists per game in the year for Player 1",
+            border=True
+        )
+        st.metric(
+            label=":blue[Field Goals Percentage per Game (%)]",
+            value=player1_stats["field_goal_pct_per_game"].values[0],
+            help="Field goals percentage per game in the year for Player 1",
+            border=True
+        )
+        st.metric(
+            label=":blue[Three Pointer Percentage per Game (%)]",
+            value=player1_stats["three_point_pct_per_game"].values[0],
+            help="Three pointer percentage per game in the year for Player 1",
+            border=True
+        )
+        st.metric(
+            label=":blue[Free Throw Percentage per Game (%)]",
+            value=player1_stats["free_throws_pct_per_game"].values[0],
+            help="Free throw percentage per game"
+            "in the year for Player 1",
+            border=True
+        )
+
+    with col2:
+        st.subheader(f":red[{selected_player_2}] ({selected_year_2})")
+        st.metric(
+            label=":red[Points per Game (ppg)]",
+            value=player2_stats["points_per_game"].values[0],
+            help="Average points per game in the year for Player 2",
+            border=True
+        )
+        st.metric(
+            label=":red[Rebounds per Game (rpg)]",
+            value=player2_stats["rebounds_per_game"].values[0],
+            help="Average rebounds per game in the year for Player 2",
+            border=True
+        )
+        st.metric(
+            label=":red[Assists per Game (apg)]",
+            value=player2_stats["assists_per_game"].values[0],
+            help="Average assists per game in the year for Player 2",
+            border=True
+        )
+        st.metric(
+            label=":red[Field Goals Percentage per Game (%)]",
+            value=player2_stats["field_goal_pct_per_game"].values[0],
+            help="Field goals percentage per game in the year for Player 2",
+            border=True
+        )
+        st.metric(
+            label=":red[Three Pointer Percentage per Game (%)]",
+            value=player2_stats["three_point_pct_per_game"].values[0],
+            help="Three pointer percentage per game in the year for Player 2",
+            border=True
+        )
+        st.metric(
+            label=":red[Free Throw per Game (%)]",
+            value=player2_stats["free_throws_pct_per_game"].values[0],
+            help="Free throw percentage per game"
+            "in the year for Player 2",
+            border=True
+        )
+with tab3:
+    # Top three point shooters across all years
+    top_three_pointers_df = (
+        player_stats_df
+        .groupby("player_name", as_index=False)["total_three_pointers"]
+        .sum()
+        .sort_values(by="total_three_pointers", ascending=False)
+    )
+
+    # Take the first 10 players
+    top_three_pointers_df = top_three_pointers_df.head(10)
+
+    # Plot the bar chart
+    bar_chart = px.bar(
+        top_three_pointers_df,
+        x="player_name",
+        y="total_three_pointers",
+        color="total_three_pointers",
+        color_continuous_scale="Blues",
+        height=550,
+        title="Top 10 Players by Total Three-Pointers",
+        labels={
+            "player_name": "Player",
+            "total_three_pointers": "Total 3-Pointers"
+        }
+    )
+
+    # Update the title color and size
+    bar_chart.update_layout(title_font=dict(size=22, color='#60b4ff'))
+    # Plot the bar graph
+    st.plotly_chart(bar_chart, use_container_width=True)
+with tab4:
+    # Most point scorers
+    top_points_per_game_df = (
+        player_stats_df
+        .groupby("player_name", as_index=False)["points_per_game"]
+        .mean()
+        .sort_values(by="points_per_game", ascending=False)
+    )
+
+    # Take the first 10
+    top_points_per_game_df = top_points_per_game_df.head(10)
+
+    # Plot the bar chart
+    bar_chart_2 = px.bar(
+        top_points_per_game_df,
+        x="player_name",
+        y="points_per_game",
+        color="points_per_game",
+        color_continuous_scale="Blues",
+        height=550,
+        title="Top 10 Players by Points per Game",
+        labels={
+            "player_name": "Player",
+            "points_per_game": "Points per Game (ppg)"
+        }
+    )
+
+    # Update the title color and size
+    bar_chart_2.update_layout(title_font=dict(size=22, color='#60b4ff'))
+    # Plot the bar chart
+    st.plotly_chart(bar_chart_2, use_container_width=True)

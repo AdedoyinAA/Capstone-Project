@@ -46,8 +46,9 @@ The dataset underwent a full **ETL (Extract, Transform, Load) pipeline**:
     - Appropriate data type conversion e.g: `object` to `datetime`.
     - Handling missing values and ensuring consistent data types.
     - Renaming columns for better understanding.
-    - Dropping unnecessary columns not needed for analysis.
-    - Removing entries were a player was absent from a game.
+    - Dropping unnecessary columns not needed for analysis (e.g.
+    offensive and defensive rebounds, +/-, turnover stats, etc.).
+    - Removing entries where a player was absent from a game.
     - Parsing multi-position players and selecting primary positions for
     analysis.
     - Aggregating statistics to calculate points per game, assists per game

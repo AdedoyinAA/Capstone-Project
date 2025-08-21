@@ -1,7 +1,7 @@
 ![NBA Logo](/streamlit/images/nba_logo.avif)
 # HoopMetrics Streamlit Application
 
-This Streamlit application provides an interave dashboard for exploring NBA data, offering insights into player performance, salaries, and team statistics.
+This Streamlit application provides an interactive dashboard for exploring NBA data, offering insights into player performance, salaries, and team statistics.
 
 With a clean interface and powerful visualizations, the app allows you to:
 - **⛹️ Analyze Player Statistics** – Track points, assists, rebounds, and shooting percentages across calendar years.

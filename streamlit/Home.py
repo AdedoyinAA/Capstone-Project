@@ -56,7 +56,7 @@ st.markdown(
 selected_year = st.selectbox(
     label="Select a Year:",
     options=years,
-    help="Choose a year"
+    help="Choose a year (stats shown are for the calendar year not season)"
 )
 
 # Filter teams based on selected year

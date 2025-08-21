@@ -66,7 +66,7 @@ years = sorted(player_stats_df_full["year"].unique())
 selected_year = st.selectbox(
     label="Select a Year:",
     options=years,
-    help="Choose a year"
+    help="Choose a year (stats shown are for the calendar year not season)"
 )
 
 # Filter players based on selected year

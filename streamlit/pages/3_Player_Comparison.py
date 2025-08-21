@@ -91,8 +91,8 @@ with column_1:
         help="Player's date of birth"
     )
     st.metric(
-        label=":blue[Salary (Inflation Adjusted)]",
-        value=f"${player_1_info['inflation_adjusted_salary']}",
+        label=":blue[Salary]",
+        value=f"${player_1_info['salary']}",
         border=True,
         help="Player's salary per year"
     )
@@ -127,8 +127,8 @@ with column_2:
         help="Player's date of birth"
     )
     st.metric(
-        label=":red[Salary (Inflation Adjusted)]",
-        value=f"${player_2_info['inflation_adjusted_salary']}",
+        label=":red[Salary]",
+        value=f"${player_2_info['salary']}",
         border=True,
         help="Player's salary per year"
     )

@@ -4,10 +4,10 @@
 This Streamlit application provides an interave dashboard for exploring NBA data, offering insights into player performance, salaries, and team statistics.
 
 With a clean interface and powerful visualizations, the app allows you to:
-- **⛹️ Analyze Player Statistics** – Track points, assists, rebounds, and shooting percentages across seasons.
-- **💸💸 Explore Salaries** – Compare player earnings by height, weight, and position with inflation-adjusted values.
-- **⚖️ Compare Players** – Select two players side-by-side to compare their profiles.
-- **🏆 Team Statistics** – Dive into team-level performance and trends across seasons.
+- **⛹️ Analyze Player Statistics** – Track points, assists, rebounds, and shooting percentages across calendar years.
+- **💸💸 Explore Salaries** – Compare player earnings by height, weight, and position.
+- **⚖️ Compare Players** – Select two players side-by-side to compare their yearly stats.
+- **🏆 Team Statistics** – Dive into team-level performance and trends across calendar years.
   
 This app is built with:
 - [Streamlit](https://streamlit.io) for the interactive UI.

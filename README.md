@@ -223,7 +223,7 @@ I want to be able to view key insights about the cleaned and enriched dataset on
 ```
 ### User-Story-11
 ```
-I want to be able to access a Streamlit application which shows visualisationsand key insights 
+I want to be able to access a Streamlit application which shows visualisations and key insights 
 about the cleaned and enriched NBA dataset.
 ```
 ---

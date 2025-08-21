@@ -58,7 +58,7 @@ The dataset underwent a full **ETL (Extract, Transform, Load) pipeline**:
     P95, and P99 salaries.
 - **Loading:** Cleaned and enriched data was loaded into a PostgreSQL database
     (Pagila) for persistence and efficient querying.
-- **Testing:** A total of **107** unit tests were written to assess the
+- **Testing:** A total of **107** tests were written to assess the
     functionality of the ETL pipeline and a code coverage of **94%**
     was achieved.
 
@@ -77,7 +77,7 @@ st.markdown("""
 - Percentile analysis (P95, P99) reveals the impact of top-performing players
     on salaries.
 - Golden State Warriors had the highest win percentage in a calendar year in
-2016.
+    2016.
 
 ---
 ## <span style="color:#60b4ff">Challenges & Future Directions</span>

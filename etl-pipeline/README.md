@@ -43,7 +43,7 @@ python3 -m venv .venv
 ```
 - For Windows:
 ```bash
-source .venv/Scripts/activate
+source .venv\Scripts\activate
 ```
 - For MacOS/Linux:
 ```bash
